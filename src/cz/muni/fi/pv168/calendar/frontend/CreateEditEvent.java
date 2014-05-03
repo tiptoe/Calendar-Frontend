@@ -30,91 +30,106 @@ public class CreateEditEvent extends javax.swing.JDialog {
         jTextFieldNewEventName = new javax.swing.JTextField();
         jTextFieldNewEventNote = new javax.swing.JTextField();
         jButtonNewEventCommit = new javax.swing.JButton();
-        jSpinnerNewEventStartHour = new javax.swing.JSpinner();
-        jSpinnerNewEventEndMinute = new javax.swing.JSpinner();
-        jSpinnerNewEventStartDate = new javax.swing.JSpinner();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jSpinnerNewEventStartDay = new javax.swing.JSpinner();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         jSpinnerNewEventStartMonth = new javax.swing.JSpinner();
         jSpinnerNewEventStartYear = new javax.swing.JSpinner();
-        jSpinnerNewEventEndDate = new javax.swing.JSpinner();
+        jSpinnerNewEventStartHour = new javax.swing.JSpinner();
+        jSpinnerNewEventStartMinute = new javax.swing.JSpinner();
+        jSpinnerNewEventEndDay = new javax.swing.JSpinner();
         jSpinnerNewEventEndMonth = new javax.swing.JSpinner();
         jSpinnerNewEventEndYear = new javax.swing.JSpinner();
         jSpinnerNewEventEndHour = new javax.swing.JSpinner();
-        jSpinnerNewEventStartMinute = new javax.swing.JSpinner();
+        jSpinnerNewEventEndMinute = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTextFieldNewEventName.setText("Name");
+        jTextFieldNewEventName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldNewEventNameActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jTextFieldNewEventName, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 360, -1));
 
         jTextFieldNewEventNote.setText("Note");
+        getContentPane().add(jTextFieldNewEventNote, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 360, -1));
 
         jButtonNewEventCommit.setText("Commit");
+        getContentPane().add(jButtonNewEventCommit, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, 128, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jSpinnerNewEventStartDate, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-                            .addComponent(jSpinnerNewEventEndDate))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jSpinnerNewEventEndMonth, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-                            .addComponent(jSpinnerNewEventStartMonth))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jSpinnerNewEventStartYear, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
-                            .addComponent(jSpinnerNewEventEndYear))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jSpinnerNewEventStartHour, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(jSpinnerNewEventEndHour)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jSpinnerNewEventEndMinute, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
-                            .addComponent(jSpinnerNewEventStartMinute)))
-                    .addComponent(jTextFieldNewEventName)
-                    .addComponent(jTextFieldNewEventNote))
-                .addGap(57, 57, 57))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(101, 101, 101)
-                .addComponent(jButtonNewEventCommit, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTextFieldNewEventName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jSpinnerNewEventStartHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSpinnerNewEventStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSpinnerNewEventStartMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSpinnerNewEventStartYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSpinnerNewEventStartMinute, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(5, 5, 5)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jSpinnerNewEventEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSpinnerNewEventEndMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSpinnerNewEventEndYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSpinnerNewEventEndHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSpinnerNewEventEndMinute, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldNewEventNote, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonNewEventCommit)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jLabel1.setText("Name:");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        jLabel2.setText("Start date:");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
+
+        jLabel3.setText("End date:");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
+
+        jLabel4.setText("Note:");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
+
+        jSpinnerNewEventStartDay.setModel(new javax.swing.SpinnerNumberModel(1, 1, 31, 1));
+        getContentPane().add(jSpinnerNewEventStartDay, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 50, -1));
+
+        jLabel5.setText("Day:");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, -1, -1));
+
+        jLabel6.setText("Month:");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, -1, -1));
+
+        jLabel7.setText("Year:");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 50, -1, -1));
+
+        jLabel8.setText("Hour:");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 50, -1, -1));
+
+        jLabel9.setText("Minute:");
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 50, -1, -1));
+
+        jSpinnerNewEventStartMonth.setModel(new javax.swing.SpinnerNumberModel(1, 1, 12, 1));
+        getContentPane().add(jSpinnerNewEventStartMonth, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 70, 50, -1));
+
+        jSpinnerNewEventStartYear.setModel(new javax.swing.SpinnerNumberModel(2014, 1970, 2100, 1));
+        getContentPane().add(jSpinnerNewEventStartYear, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 70, 60, -1));
+
+        jSpinnerNewEventStartHour.setModel(new javax.swing.SpinnerNumberModel(0, 0, 23, 1));
+        getContentPane().add(jSpinnerNewEventStartHour, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 70, 50, -1));
+
+        jSpinnerNewEventStartMinute.setModel(new javax.swing.SpinnerNumberModel(0, 0, 59, 1));
+        getContentPane().add(jSpinnerNewEventStartMinute, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 70, 50, -1));
+
+        jSpinnerNewEventEndDay.setModel(new javax.swing.SpinnerNumberModel(1, 1, 31, 1));
+        getContentPane().add(jSpinnerNewEventEndDay, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, 50, -1));
+
+        jSpinnerNewEventEndMonth.setModel(new javax.swing.SpinnerNumberModel(1, 1, 12, 1));
+        getContentPane().add(jSpinnerNewEventEndMonth, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, 50, -1));
+
+        jSpinnerNewEventEndYear.setModel(new javax.swing.SpinnerNumberModel(2014, 1970, 2100, 1));
+        getContentPane().add(jSpinnerNewEventEndYear, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 100, 60, -1));
+
+        jSpinnerNewEventEndHour.setModel(new javax.swing.SpinnerNumberModel(0, 0, 23, 1));
+        getContentPane().add(jSpinnerNewEventEndHour, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 100, 50, -1));
+
+        jSpinnerNewEventEndMinute.setModel(new javax.swing.SpinnerNumberModel(0, 0, 59, 1));
+        getContentPane().add(jSpinnerNewEventEndMinute, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 100, 50, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTextFieldNewEventNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNewEventNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldNewEventNameActionPerformed
 
     /**
      * @param args the command line arguments
@@ -159,12 +174,21 @@ public class CreateEditEvent extends javax.swing.JDialog {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonNewEventCommit;
-    private javax.swing.JSpinner jSpinnerNewEventEndDate;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JSpinner jSpinnerNewEventEndDay;
     private javax.swing.JSpinner jSpinnerNewEventEndHour;
     private javax.swing.JSpinner jSpinnerNewEventEndMinute;
     private javax.swing.JSpinner jSpinnerNewEventEndMonth;
     private javax.swing.JSpinner jSpinnerNewEventEndYear;
-    private javax.swing.JSpinner jSpinnerNewEventStartDate;
+    private javax.swing.JSpinner jSpinnerNewEventStartDay;
     private javax.swing.JSpinner jSpinnerNewEventStartHour;
     private javax.swing.JSpinner jSpinnerNewEventStartMinute;
     private javax.swing.JSpinner jSpinnerNewEventStartMonth;

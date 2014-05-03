@@ -95,6 +95,18 @@ public class JFrameDesign extends javax.swing.JFrame {
 
         jButtonEventDelete.setText("Delete selected");
 
+        jSpinnerEventStartDay.setModel(new javax.swing.SpinnerNumberModel(1, 1, 31, 1));
+
+        jSpinnerEventStartMonth.setModel(new javax.swing.SpinnerNumberModel(1, 1, 12, 1));
+
+        jSpinnerEventStartYear.setModel(new javax.swing.SpinnerNumberModel(2014, 1970, 2100, 1));
+
+        jSpinnerEventEndDay.setModel(new javax.swing.SpinnerNumberModel(1, 1, 31, 1));
+
+        jSpinnerEventEndMonth.setModel(new javax.swing.SpinnerNumberModel(1, 1, 12, 1));
+
+        jSpinnerEventEndYear.setModel(new javax.swing.SpinnerNumberModel(2014, 1970, 2100, 1));
+
         javax.swing.GroupLayout jPanelEventLayout = new javax.swing.GroupLayout(jPanelEvent);
         jPanelEvent.setLayout(jPanelEventLayout);
         jPanelEventLayout.setHorizontalGroup(
@@ -237,11 +249,11 @@ public class JFrameDesign extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 832, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 525, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
         );
 
         pack();
