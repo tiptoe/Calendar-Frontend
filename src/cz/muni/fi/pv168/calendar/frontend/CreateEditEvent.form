@@ -28,43 +28,43 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jSpinner3" pref="50" max="32767" attributes="0"/>
-                          <Component id="jSpinner6" max="32767" attributes="0"/>
+                          <Component id="jSpinnerNewEventStartDate" pref="50" max="32767" attributes="0"/>
+                          <Component id="jSpinnerNewEventEndDate" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jSpinner7" pref="50" max="32767" attributes="0"/>
-                          <Component id="jSpinner4" max="32767" attributes="0"/>
+                          <Component id="jSpinnerNewEventEndMonth" pref="50" max="32767" attributes="0"/>
+                          <Component id="jSpinnerNewEventStartMonth" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jSpinner5" pref="66" max="32767" attributes="0"/>
-                          <Component id="jSpinner8" max="32767" attributes="0"/>
+                          <Component id="jSpinnerNewEventStartYear" pref="66" max="32767" attributes="0"/>
+                          <Component id="jSpinnerNewEventEndYear" max="32767" attributes="0"/>
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="jSpinner1" min="-2" pref="50" max="-2" attributes="0"/>
+                              <Component id="jSpinnerNewEventStartHour" min="-2" pref="50" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                              <Component id="jSpinner9" max="32767" attributes="0"/>
+                              <Component id="jSpinnerNewEventEndHour" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jSpinner2" pref="51" max="32767" attributes="0"/>
-                          <Component id="jSpinner10" max="32767" attributes="0"/>
+                          <Component id="jSpinnerNewEventEndMinute" pref="51" max="32767" attributes="0"/>
+                          <Component id="jSpinnerNewEventStartMinute" max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <Component id="jTextField1" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jTextField2" alignment="0" max="32767" attributes="0"/>
+                  <Component id="jTextFieldNewEventName" alignment="0" max="32767" attributes="0"/>
+                  <Component id="jTextFieldNewEventNote" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="101" max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" pref="128" max="-2" attributes="0"/>
+              <Component id="jButtonNewEventCommit" min="-2" pref="128" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -73,67 +73,67 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jTextField1" min="-2" max="-2" attributes="0"/>
+              <Component id="jTextFieldNewEventName" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jSpinner1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jSpinner3" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jSpinner4" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jSpinner5" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jSpinner10" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jSpinnerNewEventStartHour" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jSpinnerNewEventStartDate" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jSpinnerNewEventStartMonth" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jSpinnerNewEventStartYear" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jSpinnerNewEventStartMinute" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jSpinner6" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jSpinner7" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jSpinner8" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jSpinner9" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jSpinner2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jSpinnerNewEventEndDate" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jSpinnerNewEventEndMonth" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jSpinnerNewEventEndYear" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jSpinnerNewEventEndHour" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jSpinnerNewEventEndMinute" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jTextField2" min="-2" max="-2" attributes="0"/>
+              <Component id="jTextFieldNewEventNote" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+              <Component id="jButtonNewEventCommit" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JTextField" name="jTextField1">
+    <Component class="javax.swing.JTextField" name="jTextFieldNewEventName">
       <Properties>
         <Property name="text" type="java.lang.String" value="Name"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField2">
+    <Component class="javax.swing.JTextField" name="jTextFieldNewEventNote">
       <Properties>
         <Property name="text" type="java.lang.String" value="Note"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="jButtonNewEventCommit">
       <Properties>
         <Property name="text" type="java.lang.String" value="Commit"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JSpinner" name="jSpinner1">
+    <Component class="javax.swing.JSpinner" name="jSpinnerNewEventStartHour">
     </Component>
-    <Component class="javax.swing.JSpinner" name="jSpinner2">
+    <Component class="javax.swing.JSpinner" name="jSpinnerNewEventEndMinute">
     </Component>
-    <Component class="javax.swing.JSpinner" name="jSpinner3">
+    <Component class="javax.swing.JSpinner" name="jSpinnerNewEventStartDate">
     </Component>
-    <Component class="javax.swing.JSpinner" name="jSpinner4">
+    <Component class="javax.swing.JSpinner" name="jSpinnerNewEventStartMonth">
     </Component>
-    <Component class="javax.swing.JSpinner" name="jSpinner5">
+    <Component class="javax.swing.JSpinner" name="jSpinnerNewEventStartYear">
     </Component>
-    <Component class="javax.swing.JSpinner" name="jSpinner6">
+    <Component class="javax.swing.JSpinner" name="jSpinnerNewEventEndDate">
     </Component>
-    <Component class="javax.swing.JSpinner" name="jSpinner7">
+    <Component class="javax.swing.JSpinner" name="jSpinnerNewEventEndMonth">
     </Component>
-    <Component class="javax.swing.JSpinner" name="jSpinner8">
+    <Component class="javax.swing.JSpinner" name="jSpinnerNewEventEndYear">
     </Component>
-    <Component class="javax.swing.JSpinner" name="jSpinner9">
+    <Component class="javax.swing.JSpinner" name="jSpinnerNewEventEndHour">
     </Component>
-    <Component class="javax.swing.JSpinner" name="jSpinner10">
+    <Component class="javax.swing.JSpinner" name="jSpinnerNewEventStartMinute">
     </Component>
   </SubComponents>
 </Form>
