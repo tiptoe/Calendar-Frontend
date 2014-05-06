@@ -4,16 +4,17 @@
  */
 package cz.muni.fi.pv168.calendar.frontend;
 
+
 /**
  *
- * @author Cael
+ * @author Jan Smerda, Jiri Stary
  */
-public class JFrameDesign extends javax.swing.JFrame {
+public class EventsMainWindow extends javax.swing.JFrame {
 
     /**
      * Creates new form JFrameDesign
      */
-    public JFrameDesign() {
+    public EventsMainWindow() {
         initComponents();
     }
 
@@ -80,6 +81,11 @@ public class JFrameDesign extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTableEvents);
 
         jButtonEventCreate.setText("Create new");
+        jButtonEventCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEventCreateActionPerformed(evt);
+            }
+        });
 
         jButtonEventEdit.setText("Edit selected");
 
@@ -259,6 +265,10 @@ public class JFrameDesign extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButtonEventCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEventCreateActionPerformed
+        CreateEditEvent.start(false);
+    }//GEN-LAST:event_jButtonEventCreateActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -276,20 +286,20 @@ public class JFrameDesign extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFrameDesign.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EventsMainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFrameDesign.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EventsMainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFrameDesign.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EventsMainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFrameDesign.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EventsMainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JFrameDesign().setVisible(true);
+                new EventsMainWindow().setVisible(true);
             }
         });
     }

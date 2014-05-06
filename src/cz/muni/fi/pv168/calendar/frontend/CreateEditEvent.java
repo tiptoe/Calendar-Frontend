@@ -3,13 +3,23 @@
  * and open the template in the editor.
  */
 package cz.muni.fi.pv168.calendar.frontend;
+import cz.muni.fi.pv168.calendar.backend.Event;
+import cz.muni.fi.pv168.calendar.backend.EventManager;
+import cz.muni.fi.pv168.calendar.backend.EventManagerImpl;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+import javax.swing.JOptionPane;
 
 /**
  *
- * @author Cael
+ * @author Jan Smerda, Jiri Stary
  */
 public class CreateEditEvent extends javax.swing.JDialog {
-
+    
+    private static boolean isEditing;
+    private static EventManager manager;
     /**
      * Creates new form CreateEditEvent
      */
@@ -53,22 +63,24 @@ public class CreateEditEvent extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTextFieldNewEventName.setText("Name");
         jTextFieldNewEventName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldNewEventNameActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextFieldNewEventName, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 360, -1));
-
-        jTextFieldNewEventNote.setText("Note");
+        getContentPane().add(jTextFieldNewEventName, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 360, -1));
         getContentPane().add(jTextFieldNewEventNote, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 360, -1));
 
         jButtonNewEventCommit.setText("Commit");
+        jButtonNewEventCommit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNewEventCommitActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonNewEventCommit, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, 128, -1));
 
         jLabel1.setText("Name:");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
 
         jLabel2.setText("Start date:");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
@@ -131,10 +143,31 @@ public class CreateEditEvent extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldNewEventNameActionPerformed
 
+    private void jButtonNewEventCommitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNewEventCommitActionPerformed
+        if (jTextFieldNewEventName.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Please fill in name.");
+        }
+        if(isEditing) {
+            //TODO editace polozky
+        } else {
+            //String s = 
+            //SimpleDateFormat f = new SimpleDateFormat("dd.MM.YYYY HH:mm");
+            //Date startDate = f.parse();
+            Event newEvent = new Event();
+            newEvent.setName(jTextFieldNewEventName.getText());
+            //newEvent.setStartDate(startDate);
+            //newEvent.setEndDate(endDate);
+            newEvent.setNote(jTextFieldNewEventNote.getText());
+            manager.createEvent(newEvent);
+        }
+    }//GEN-LAST:event_jButtonNewEventCommitActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void start(boolean isEditing) {
+        CreateEditEvent.isEditing = isEditing;
+        CreateEditEvent.manager = new EventManagerImpl();
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
