@@ -14,6 +14,7 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sql.DataSource;
+import javax.swing.SwingWorker;
 import org.apache.commons.dbcp.BasicDataSource;
 
 /**
@@ -22,6 +23,8 @@ import org.apache.commons.dbcp.BasicDataSource;
  */
 public class EventsMainWindow extends javax.swing.JFrame {
 
+    private LoadWorker loadWorker;
+    
     private static EventManagerImpl eventManager;
     private static PersonManagerImpl personManager;
     private static AttendanceManagerImpl attendanceManager;
@@ -93,18 +96,7 @@ public class EventsMainWindow extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTableEvents.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Name", "Start Time", "End Time", "Note"
-            }
-        ));
+        jTableEvents.setModel(new EventTableModel());
         jScrollPane1.setViewportView(jTableEvents);
 
         jButtonEventCreate.setText("Create new");
@@ -153,7 +145,7 @@ public class EventsMainWindow extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelEventLayout.createSequentialGroup()
                         .addGap(96, 96, 96)
                         .addGroup(jPanelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonEventDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonEventDelete, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
                             .addComponent(jButtonEventCreate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButtonEventEdit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE))
                         .addGroup(jPanelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -165,11 +157,11 @@ public class EventsMainWindow extends javax.swing.JFrame {
                                     .addGroup(jPanelEventLayout.createSequentialGroup()
                                         .addGap(18, 18, 18)
                                         .addComponent(jButtonEventShow)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 123, Short.MAX_VALUE)
                                         .addComponent(jLabel1)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jSpinnerEventEndDay, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+                                    .addComponent(jSpinnerEventEndDay)
                                     .addComponent(jSpinnerEventStartDay))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,7 +170,7 @@ public class EventsMainWindow extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jSpinnerEventStartYear, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanelEventLayout.createSequentialGroup()
-                                        .addComponent(jSpinnerEventEndMonth)
+                                        .addComponent(jSpinnerEventEndMonth, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jSpinnerEventEndYear, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(jPanelEventLayout.createSequentialGroup()
@@ -220,7 +212,7 @@ public class EventsMainWindow extends javax.swing.JFrame {
                     .addComponent(jButtonEventSearch))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonEventClear)
-                .addContainerGap(111, Short.MAX_VALUE))
+                .addContainerGap(119, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Events", jPanelEvent);
@@ -251,7 +243,7 @@ public class EventsMainWindow extends javax.swing.JFrame {
             .addGroup(jPanelPeopleLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelPeopleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 807, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 855, Short.MAX_VALUE)
                     .addGroup(jPanelPeopleLayout.createSequentialGroup()
                         .addGap(288, 288, 288)
                         .addGroup(jPanelPeopleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,7 +265,7 @@ public class EventsMainWindow extends javax.swing.JFrame {
                 .addComponent(jButtonPeopleEdit)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonPeopleDelete)
-                .addContainerGap(137, Short.MAX_VALUE))
+                .addContainerGap(145, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("People", jPanelPeople);
@@ -295,6 +287,15 @@ public class EventsMainWindow extends javax.swing.JFrame {
     private void jButtonEventCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEventCreateActionPerformed
         CreateEditEvent.start(null);
     }//GEN-LAST:event_jButtonEventCreateActionPerformed
+    
+private class LoadWorker extends SwingWorker<Void,Void> {
+        
+    @Override    
+    protected Void doInBackground() throws Exception {
+       //TODO nacist z databaze
+        return null;
+    }
+}
     
     /**
      * @param args the command line arguments
