@@ -4,12 +4,39 @@
  */
 package cz.muni.fi.pv168.calendar.frontend;
 
+import cz.muni.fi.pv168.calendar.backend.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.sql.DataSource;
+import org.apache.commons.dbcp.BasicDataSource;
 
 /**
  *
  * @author Jan Smerda, Jiri Stary
  */
 public class EventsMainWindow extends javax.swing.JFrame {
+
+    private static EventManagerImpl eventManager;
+    private static PersonManagerImpl personManager;
+    private static AttendanceManagerImpl attendanceManager;
+
+    public static EventManager getEventManager() {
+        return eventManager;
+    }
+
+    public static PersonManager getPersonManager() {
+        return personManager;
+    }
+
+    public static AttendanceManager getAttendanceManager() {
+        return attendanceManager;
+    }
 
     /**
      * Creates new form JFrameDesign
@@ -266,9 +293,9 @@ public class EventsMainWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonEventCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEventCreateActionPerformed
-        CreateEditEvent.start(false);
+        CreateEditEvent.start(null);
     }//GEN-LAST:event_jButtonEventCreateActionPerformed
-
+    
     /**
      * @param args the command line arguments
      */
@@ -295,6 +322,28 @@ public class EventsMainWindow extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(EventsMainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        Properties prop = new Properties();
+       /*
+        * nacist properties - prop.load(InputStream is) nacita properties soubor z InputStreamu
+        
+        BasicDataSource ds = new BasicDataSource();
+        ds.setDriverClassName(prop.getProperty("jdbcDriverClassName"));
+        ds.setUrl(prop.getProperty("jdbcUrl"));
+        ds.setUsername(prop.getProperty("jdbcUsername"));
+        ds.setPassword(prop.getProperty("jdbcPassword"));
+        */
+        BasicDataSource ds = new BasicDataSource();
+        ds.setDriverClassName("org.apache.derby.jdbc.ClientDriver");
+        ds.setUrl("jdbc:derby://localhost:1527/calendarDB");
+        ds.setUsername("calendar");
+        ds.setPassword("admin");
+        personManager = new PersonManagerImpl();
+        personManager.setDataSource(ds);
+        eventManager = new EventManagerImpl();
+        eventManager.setDataSource(ds);
+        attendanceManager = new AttendanceManagerImpl();
+        attendanceManager.setDataSource(ds);
+
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

@@ -96,7 +96,7 @@
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="jSpinnerEventEndDay" pref="51" max="32767" attributes="0"/>
+                                          <Component id="jSpinnerEventEndDay" max="32767" attributes="0"/>
                                           <Component id="jSpinnerEventStartDay" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -323,7 +323,7 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane2" alignment="0" pref="807" max="32767" attributes="0"/>
+                          <Component id="jScrollPane2" alignment="0" pref="855" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="288" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -351,7 +351,7 @@
                       <Component id="jButtonPeopleEdit" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jButtonPeopleDelete" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="137" max="32767" attributes="0"/>
+                      <EmptySpace pref="145" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

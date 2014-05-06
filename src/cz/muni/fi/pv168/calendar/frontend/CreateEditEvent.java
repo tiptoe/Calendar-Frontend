@@ -3,12 +3,17 @@
  * and open the template in the editor.
  */
 package cz.muni.fi.pv168.calendar.frontend;
+
 import cz.muni.fi.pv168.calendar.backend.Event;
 import cz.muni.fi.pv168.calendar.backend.EventManager;
 import cz.muni.fi.pv168.calendar.backend.EventManagerImpl;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
@@ -17,9 +22,9 @@ import javax.swing.JOptionPane;
  * @author Jan Smerda, Jiri Stary
  */
 public class CreateEditEvent extends javax.swing.JDialog {
-    
-    private static boolean isEditing;
-    private static EventManager manager;
+
+    private static Event event;
+
     /**
      * Creates new form CreateEditEvent
      */
@@ -59,6 +64,7 @@ public class CreateEditEvent extends javax.swing.JDialog {
         jSpinnerNewEventEndYear = new javax.swing.JSpinner();
         jSpinnerNewEventEndHour = new javax.swing.JSpinner();
         jSpinnerNewEventEndMinute = new javax.swing.JSpinner();
+        jButtonNewEventCancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -77,7 +83,7 @@ public class CreateEditEvent extends javax.swing.JDialog {
                 jButtonNewEventCommitActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonNewEventCommit, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, 128, -1));
+        getContentPane().add(jButtonNewEventCommit, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, 128, -1));
 
         jLabel1.setText("Name:");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
@@ -92,49 +98,57 @@ public class CreateEditEvent extends javax.swing.JDialog {
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
 
         jSpinnerNewEventStartDay.setModel(new javax.swing.SpinnerNumberModel(1, 1, 31, 1));
-        getContentPane().add(jSpinnerNewEventStartDay, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 50, -1));
+        getContentPane().add(jSpinnerNewEventStartDay, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 50, -1));
 
         jLabel5.setText("Day:");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, -1, -1));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, -1, -1));
 
         jLabel6.setText("Month:");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, -1, -1));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, -1, -1));
 
         jLabel7.setText("Year:");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 50, -1, -1));
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, -1, -1));
 
         jLabel8.setText("Hour:");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 50, -1, -1));
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 50, -1, -1));
 
         jLabel9.setText("Minute:");
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 50, -1, -1));
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 50, -1, -1));
 
         jSpinnerNewEventStartMonth.setModel(new javax.swing.SpinnerNumberModel(1, 1, 12, 1));
-        getContentPane().add(jSpinnerNewEventStartMonth, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 70, 50, -1));
+        getContentPane().add(jSpinnerNewEventStartMonth, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 50, -1));
 
         jSpinnerNewEventStartYear.setModel(new javax.swing.SpinnerNumberModel(2014, 1970, 2100, 1));
-        getContentPane().add(jSpinnerNewEventStartYear, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 70, 60, -1));
+        getContentPane().add(jSpinnerNewEventStartYear, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 70, 80, -1));
 
         jSpinnerNewEventStartHour.setModel(new javax.swing.SpinnerNumberModel(0, 0, 23, 1));
-        getContentPane().add(jSpinnerNewEventStartHour, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 70, 50, -1));
+        getContentPane().add(jSpinnerNewEventStartHour, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 70, 50, -1));
 
         jSpinnerNewEventStartMinute.setModel(new javax.swing.SpinnerNumberModel(0, 0, 59, 1));
-        getContentPane().add(jSpinnerNewEventStartMinute, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 70, 50, -1));
+        getContentPane().add(jSpinnerNewEventStartMinute, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 70, 50, -1));
 
         jSpinnerNewEventEndDay.setModel(new javax.swing.SpinnerNumberModel(1, 1, 31, 1));
-        getContentPane().add(jSpinnerNewEventEndDay, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, 50, -1));
+        getContentPane().add(jSpinnerNewEventEndDay, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, 50, -1));
 
         jSpinnerNewEventEndMonth.setModel(new javax.swing.SpinnerNumberModel(1, 1, 12, 1));
-        getContentPane().add(jSpinnerNewEventEndMonth, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, 50, -1));
+        getContentPane().add(jSpinnerNewEventEndMonth, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 50, -1));
 
         jSpinnerNewEventEndYear.setModel(new javax.swing.SpinnerNumberModel(2014, 1970, 2100, 1));
-        getContentPane().add(jSpinnerNewEventEndYear, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 100, 60, -1));
+        getContentPane().add(jSpinnerNewEventEndYear, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 100, 80, -1));
 
         jSpinnerNewEventEndHour.setModel(new javax.swing.SpinnerNumberModel(0, 0, 23, 1));
-        getContentPane().add(jSpinnerNewEventEndHour, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 100, 50, -1));
+        getContentPane().add(jSpinnerNewEventEndHour, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 100, 50, -1));
 
         jSpinnerNewEventEndMinute.setModel(new javax.swing.SpinnerNumberModel(0, 0, 59, 1));
-        getContentPane().add(jSpinnerNewEventEndMinute, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 100, 50, -1));
+        getContentPane().add(jSpinnerNewEventEndMinute, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 100, 50, -1));
+
+        jButtonNewEventCancel.setText("Cancel");
+        jButtonNewEventCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNewEventCancelActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonNewEventCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 170, 130, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -147,27 +161,47 @@ public class CreateEditEvent extends javax.swing.JDialog {
         if (jTextFieldNewEventName.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Please fill in name.");
         }
-        if(isEditing) {
-            //TODO editace polozky
-        } else {
-            //String s = 
-            //SimpleDateFormat f = new SimpleDateFormat("dd.MM.YYYY HH:mm");
-            //Date startDate = f.parse();
+        Calendar calStart = new GregorianCalendar((int) jSpinnerNewEventStartYear.getValue(),
+                (int) jSpinnerNewEventStartMonth.getValue(),
+                (int) jSpinnerNewEventStartDay.getValue(),
+                (int) jSpinnerNewEventStartHour.getValue(),
+                (int) jSpinnerNewEventStartMinute.getValue());
+        Date startDate = calStart.getTime();
+        Calendar calEnd = new GregorianCalendar((int) jSpinnerNewEventEndYear.getValue(),
+                (int) jSpinnerNewEventEndMonth.getValue(),
+                (int) jSpinnerNewEventEndDay.getValue(),
+                (int) jSpinnerNewEventEndHour.getValue(),
+                (int) jSpinnerNewEventEndMinute.getValue());
+        Date endDate = calEnd.getTime();
+        if (event == null) {
             Event newEvent = new Event();
             newEvent.setName(jTextFieldNewEventName.getText());
-            //newEvent.setStartDate(startDate);
-            //newEvent.setEndDate(endDate);
+            newEvent.setStartDate(startDate);
+            newEvent.setEndDate(endDate);
             newEvent.setNote(jTextFieldNewEventNote.getText());
-            manager.createEvent(newEvent);
+            EventsMainWindow.getEventManager().createEvent(newEvent);
+            this.dispose();
+        } else {
+            event.setName(jTextFieldNewEventName.getText());
+            event.setStartDate(startDate);
+            event.setEndDate(endDate);
+            event.setNote(jTextFieldNewEventNote.getText());
+            EventsMainWindow.getEventManager().updateEvent(event);
+            this.dispose();
         }
+
+
     }//GEN-LAST:event_jButtonNewEventCommitActionPerformed
+
+    private void jButtonNewEventCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNewEventCancelActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButtonNewEventCancelActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void start(boolean isEditing) {
-        CreateEditEvent.isEditing = isEditing;
-        CreateEditEvent.manager = new EventManagerImpl();
+    public static void start(Event event) {
+        CreateEditEvent.event = event;
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -206,6 +240,7 @@ public class CreateEditEvent extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonNewEventCancel;
     private javax.swing.JButton jButtonNewEventCommit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
