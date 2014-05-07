@@ -105,9 +105,19 @@ public boolean isCellEditable(int rowIndex, int columnIndex) {
     }
 }
 
+
+    
     public void addEvent(Event event) {
         events.add(event);
         int lastRow = events.size() - 1;
         fireTableRowsInserted(lastRow, lastRow);
     }
+    
+    public void deleteEvent(Event event) {
+        int lastRow = events.indexOf(event);
+        events.remove(event);
+        fireTableRowsDeleted(lastRow, lastRow);
+    }
+    
+    
 }

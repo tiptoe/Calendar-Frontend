@@ -10,6 +10,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -292,7 +295,19 @@ private class LoadWorker extends SwingWorker<Void,Void> {
         
     @Override    
     protected Void doInBackground() throws Exception {
-       //TODO nacist z databaze
+        EventTableModel model = (EventTableModel) jTableEvents.getModel();
+       jTableEvents.removeColumn(jTableEvents.getColumnModel().getColumn(0));
+       List<Event> events = new ArrayList<Event>();
+       Date startDate = new Date();
+       startDate.setTime(0L);
+       Date endDate = new Date();
+       //4136655540000L je hodnota 31.12.2100 v 23:59, tj. nejvyssi cas na spinnerech
+       endDate.setTime(4136655540000L);
+       
+       events = eventManager.findEventsByDate(startDate, endDate);
+       for (Event e : events) {
+           model.addEvent(e);
+       }
         return null;
     }
 }
@@ -344,6 +359,10 @@ private class LoadWorker extends SwingWorker<Void,Void> {
         eventManager.setDataSource(ds);
         attendanceManager = new AttendanceManagerImpl();
         attendanceManager.setDataSource(ds);
+        
+        LoadWorker loadWorker = new LoadWorker();
+        loadWorker.execute();
+        
 
 
         /* Create and display the form */
