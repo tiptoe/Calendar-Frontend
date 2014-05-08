@@ -173,6 +173,7 @@ public class CreateEditEvent extends javax.swing.JDialog {
                 (int) jSpinnerNewEventEndHour.getValue(),
                 (int) jSpinnerNewEventEndMinute.getValue());
         Date endDate = calEnd.getTime();
+        
         if (event == null) {
             Event newEvent = new Event();
             newEvent.setName(jTextFieldNewEventName.getText());

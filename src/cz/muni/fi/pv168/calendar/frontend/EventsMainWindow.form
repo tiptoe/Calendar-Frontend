@@ -114,7 +114,9 @@
                                       </Group>
                                   </Group>
                                   <Group type="102" attributes="0">
-                                      <EmptySpace min="-2" pref="292" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+                                      <Component id="jButtonLoadDatabase" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="167" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jButtonEventSearch" max="32767" attributes="0"/>
                                           <Component id="jButtonEventClear" max="32767" attributes="0"/>
@@ -166,7 +168,10 @@
                           <Component id="jButtonEventSearch" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButtonEventClear" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jButtonEventClear" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonLoadDatabase" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace pref="119" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -279,6 +284,14 @@
                   <SpinnerModel initial="2014" maximum="2100" minimum="1970" numberType="java.lang.Integer" stepSize="1" type="number"/>
                 </Property>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="jButtonLoadDatabase">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Load database"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonLoadDatabaseActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

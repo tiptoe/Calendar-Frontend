@@ -119,5 +119,9 @@ public boolean isCellEditable(int rowIndex, int columnIndex) {
         fireTableRowsDeleted(lastRow, lastRow);
     }
     
+    public void deleteAllEvents() {
+        events.clear();
+        fireTableRowsDeleted(0, 0);
+    }
     
 }

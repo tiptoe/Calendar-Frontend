@@ -26,7 +26,6 @@ import org.apache.commons.dbcp.BasicDataSource;
  */
 public class EventsMainWindow extends javax.swing.JFrame {
 
-    private LoadWorker loadWorker;
     
     private static EventManagerImpl eventManager;
     private static PersonManagerImpl personManager;
@@ -49,6 +48,7 @@ public class EventsMainWindow extends javax.swing.JFrame {
      */
     public EventsMainWindow() {
         initComponents();
+        jTableEvents.removeColumn(jTableEvents.getColumnModel().getColumn(0));
     }
 
     /**
@@ -79,6 +79,7 @@ public class EventsMainWindow extends javax.swing.JFrame {
         jSpinnerEventEndDay = new javax.swing.JSpinner();
         jSpinnerEventEndMonth = new javax.swing.JSpinner();
         jSpinnerEventEndYear = new javax.swing.JSpinner();
+        jButtonLoadDatabase = new javax.swing.JButton();
         jPanelPeople = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTablePeople = new javax.swing.JTable();
@@ -135,6 +136,13 @@ public class EventsMainWindow extends javax.swing.JFrame {
 
         jSpinnerEventEndYear.setModel(new javax.swing.SpinnerNumberModel(2014, 1970, 2100, 1));
 
+        jButtonLoadDatabase.setText("Load database");
+        jButtonLoadDatabase.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLoadDatabaseActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelEventLayout = new javax.swing.GroupLayout(jPanelEvent);
         jPanelEvent.setLayout(jPanelEventLayout);
         jPanelEventLayout.setHorizontalGroup(
@@ -177,7 +185,9 @@ public class EventsMainWindow extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jSpinnerEventEndYear, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(jPanelEventLayout.createSequentialGroup()
-                                .addGap(292, 292, 292)
+                                .addGap(52, 52, 52)
+                                .addComponent(jButtonLoadDatabase)
+                                .addGap(167, 167, 167)
                                 .addGroup(jPanelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jButtonEventSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jButtonEventClear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -214,7 +224,9 @@ public class EventsMainWindow extends javax.swing.JFrame {
                     .addComponent(jButtonEventDelete)
                     .addComponent(jButtonEventSearch))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonEventClear)
+                .addGroup(jPanelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonEventClear)
+                    .addComponent(jButtonLoadDatabase))
                 .addContainerGap(119, Short.MAX_VALUE))
         );
 
@@ -289,14 +301,24 @@ public class EventsMainWindow extends javax.swing.JFrame {
 
     private void jButtonEventCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEventCreateActionPerformed
         CreateEditEvent.start(null);
+        loadEventDatabase();
     }//GEN-LAST:event_jButtonEventCreateActionPerformed
+
+    private void jButtonLoadDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoadDatabaseActionPerformed
+        loadEventDatabase();
+    }//GEN-LAST:event_jButtonLoadDatabaseActionPerformed
     
-private class LoadWorker extends SwingWorker<Void,Void> {
+    private void loadEventDatabase() {
+        EventTableModel model = (EventTableModel) jTableEvents.getModel();
+        model.deleteAllEvents();
+        EventLoadWorker loadWorker = new EventLoadWorker();
+        loadWorker.execute();
+    }
+private class EventLoadWorker extends SwingWorker<Void,Void> {
         
     @Override    
     protected Void doInBackground() throws Exception {
-        EventTableModel model = (EventTableModel) jTableEvents.getModel();
-       jTableEvents.removeColumn(jTableEvents.getColumnModel().getColumn(0));
+       EventTableModel model = (EventTableModel) jTableEvents.getModel();
        List<Event> events = new ArrayList<Event>();
        Date startDate = new Date();
        startDate.setTime(0L);
@@ -311,7 +333,6 @@ private class LoadWorker extends SwingWorker<Void,Void> {
         return null;
     }
 }
-    
     /**
      * @param args the command line arguments
      */
@@ -359,10 +380,6 @@ private class LoadWorker extends SwingWorker<Void,Void> {
         eventManager.setDataSource(ds);
         attendanceManager = new AttendanceManagerImpl();
         attendanceManager.setDataSource(ds);
-        
-        LoadWorker loadWorker = new LoadWorker();
-        loadWorker.execute();
-        
 
 
         /* Create and display the form */
@@ -379,6 +396,7 @@ private class LoadWorker extends SwingWorker<Void,Void> {
     private javax.swing.JButton jButtonEventEdit;
     private javax.swing.JButton jButtonEventSearch;
     private javax.swing.JButton jButtonEventShow;
+    private javax.swing.JButton jButtonLoadDatabase;
     private javax.swing.JButton jButtonPeopleCreate;
     private javax.swing.JButton jButtonPeopleDelete;
     private javax.swing.JButton jButtonPeopleEdit;
