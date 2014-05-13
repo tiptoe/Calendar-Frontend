@@ -5,13 +5,17 @@
 package cz.muni.fi.pv168.calendar.frontend;
 
 import cz.muni.fi.pv168.calendar.backend.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -26,7 +30,6 @@ import org.apache.commons.dbcp.BasicDataSource;
  */
 public class EventsMainWindow extends javax.swing.JFrame {
 
-    
     private static EventManagerImpl eventManager;
     private static PersonManagerImpl personManager;
     private static AttendanceManagerImpl attendanceManager;
@@ -48,7 +51,11 @@ public class EventsMainWindow extends javax.swing.JFrame {
      */
     public EventsMainWindow() {
         initComponents();
-        jTableEvents.removeColumn(jTableEvents.getColumnModel().getColumn(0));
+        //jTableEvents.removeColumn(jTableEvents.getColumnModel().getColumn(0));
+        jTableEvents.getColumnModel().getColumn(0).setMinWidth(0);
+        jTableEvents.getColumnModel().getColumn(0).setMaxWidth(0);
+        loadEventDatabase();
+
     }
 
     /**
@@ -111,8 +118,18 @@ public class EventsMainWindow extends javax.swing.JFrame {
         });
 
         jButtonEventEdit.setText("Edit selected");
+        jButtonEventEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEventEditActionPerformed(evt);
+            }
+        });
 
         jButtonEventSearch.setText("Search");
+        jButtonEventSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEventSearchActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Start Date");
 
@@ -121,8 +138,18 @@ public class EventsMainWindow extends javax.swing.JFrame {
         jButtonEventShow.setText("Show attendance");
 
         jButtonEventClear.setText("Clear selection");
+        jButtonEventClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEventClearActionPerformed(evt);
+            }
+        });
 
         jButtonEventDelete.setText("Delete selected");
+        jButtonEventDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEventDeleteActionPerformed(evt);
+            }
+        });
 
         jSpinnerEventStartDay.setModel(new javax.swing.SpinnerNumberModel(1, 1, 31, 1));
 
@@ -258,7 +285,7 @@ public class EventsMainWindow extends javax.swing.JFrame {
             .addGroup(jPanelPeopleLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelPeopleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 855, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 918, Short.MAX_VALUE)
                     .addGroup(jPanelPeopleLayout.createSequentialGroup()
                         .addGap(288, 288, 288)
                         .addGroup(jPanelPeopleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -280,7 +307,7 @@ public class EventsMainWindow extends javax.swing.JFrame {
                 .addComponent(jButtonPeopleEdit)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonPeopleDelete)
-                .addContainerGap(145, Short.MAX_VALUE))
+                .addContainerGap(153, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("People", jPanelPeople);
@@ -301,38 +328,83 @@ public class EventsMainWindow extends javax.swing.JFrame {
 
     private void jButtonEventCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEventCreateActionPerformed
         CreateEditEvent.start(null);
-        loadEventDatabase();
+        //loadEventDatabase();
     }//GEN-LAST:event_jButtonEventCreateActionPerformed
 
     private void jButtonLoadDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoadDatabaseActionPerformed
         loadEventDatabase();
     }//GEN-LAST:event_jButtonLoadDatabaseActionPerformed
-    
+
+    private void jButtonEventEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEventEditActionPerformed
+        Event event = new Event();
+        event = getEventManager().getEventById((Integer) jTableEvents.getValueAt(jTableEvents.getSelectedRow(), 0));
+        CreateEditEvent.start(event);
+        //loadEventDatabase();
+    }//GEN-LAST:event_jButtonEventEditActionPerformed
+
+    private void jButtonEventDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEventDeleteActionPerformed
+        Event event = new Event();
+        event = getEventManager().getEventById((Integer) jTableEvents.getValueAt(jTableEvents.getSelectedRow(), 0));
+        getEventManager().deleteEvent(event);
+        loadEventDatabase();
+    }//GEN-LAST:event_jButtonEventDeleteActionPerformed
+
+    private void jButtonEventClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEventClearActionPerformed
+        loadEventDatabase();
+    }//GEN-LAST:event_jButtonEventClearActionPerformed
+
+    private void jButtonEventSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEventSearchActionPerformed
+       Calendar calStart = new GregorianCalendar((int) jSpinnerEventStartYear.getValue(),
+                (int) jSpinnerEventStartMonth.getValue(),
+                (int) jSpinnerEventStartDay.getValue());
+        Date startDate = calStart.getTime();
+        
+        Calendar calEnd = new GregorianCalendar((int) jSpinnerEventEndYear.getValue(),
+                (int) jSpinnerEventEndMonth.getValue(),
+                (int) jSpinnerEventEndDay.getValue());
+        Date endDate = calEnd.getTime();
+        
+        loadEventSearch(startDate, endDate);
+        
+    }//GEN-LAST:event_jButtonEventSearchActionPerformed
+
     private void loadEventDatabase() {
-        EventTableModel model = (EventTableModel) jTableEvents.getModel();
-        model.deleteAllEvents();
-        EventLoadWorker loadWorker = new EventLoadWorker();
+        Date startDate = new Date(0L);
+        //4136655540000L je hodnota 31.12.2100 v 23:59, tj. nejvyssi cas na spinnerech
+        Date endDate = new Date(4136655540000L);
+        EventLoadWorker loadWorker = new EventLoadWorker(startDate, endDate);
         loadWorker.execute();
     }
-private class EventLoadWorker extends SwingWorker<Void,Void> {
-        
-    @Override    
-    protected Void doInBackground() throws Exception {
-       EventTableModel model = (EventTableModel) jTableEvents.getModel();
-       List<Event> events = new ArrayList<Event>();
-       Date startDate = new Date();
-       startDate.setTime(0L);
-       Date endDate = new Date();
-       //4136655540000L je hodnota 31.12.2100 v 23:59, tj. nejvyssi cas na spinnerech
-       endDate.setTime(4136655540000L);
-       
-       events = eventManager.findEventsByDate(startDate, endDate);
-       for (Event e : events) {
-           model.addEvent(e);
-       }
-        return null;
+    
+    private void loadEventSearch(Date startDate, Date endDate) {
+        EventLoadWorker loadWorker = new EventLoadWorker(startDate, endDate);
+        loadWorker.execute();
     }
-}
+
+    private class EventLoadWorker extends SwingWorker<Void, Void> {
+        private Date startDate;
+        private Date endDate = new Date();
+        
+        public EventLoadWorker(Date startDate, Date endDate) {
+            this.startDate = startDate;
+            this.endDate = endDate;
+        }
+        
+        @Override
+        protected Void doInBackground() throws Exception {
+            EventTableModel model = (EventTableModel) jTableEvents.getModel();
+            model.deleteAllEvents();
+            List<Event> events = new ArrayList<Event>();
+            events = eventManager.findEventsByDate(startDate, endDate);
+            
+            for (Event e : events) {
+                model.addEvent(e);
+            }
+            
+            return null;
+        }
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -360,15 +432,15 @@ private class EventLoadWorker extends SwingWorker<Void,Void> {
         }
         //</editor-fold>
         Properties prop = new Properties();
-       /*
-        * nacist properties - prop.load(InputStream is) nacita properties soubor z InputStreamu
+        /*
+         * nacist properties - prop.load(InputStream is) nacita properties soubor z InputStreamu
         
-        BasicDataSource ds = new BasicDataSource();
-        ds.setDriverClassName(prop.getProperty("jdbcDriverClassName"));
-        ds.setUrl(prop.getProperty("jdbcUrl"));
-        ds.setUsername(prop.getProperty("jdbcUsername"));
-        ds.setPassword(prop.getProperty("jdbcPassword"));
-        */
+         BasicDataSource ds = new BasicDataSource();
+         ds.setDriverClassName(prop.getProperty("jdbcDriverClassName"));
+         ds.setUrl(prop.getProperty("jdbcUrl"));
+         ds.setUsername(prop.getProperty("jdbcUsername"));
+         ds.setPassword(prop.getProperty("jdbcPassword"));
+         */
         BasicDataSource ds = new BasicDataSource();
         ds.setDriverClassName("org.apache.derby.jdbc.ClientDriver");
         ds.setUrl("jdbc:derby://localhost:1527/calendarDB");

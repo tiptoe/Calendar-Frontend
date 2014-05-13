@@ -31,6 +31,9 @@ public class CreateEditEvent extends javax.swing.JDialog {
     public CreateEditEvent(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        if (event != null) {
+            setUp();
+        }
     }
 
     /**
@@ -161,12 +164,14 @@ public class CreateEditEvent extends javax.swing.JDialog {
         if (jTextFieldNewEventName.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Please fill in name.");
         }
+        
         Calendar calStart = new GregorianCalendar((int) jSpinnerNewEventStartYear.getValue(),
                 (int) jSpinnerNewEventStartMonth.getValue(),
                 (int) jSpinnerNewEventStartDay.getValue(),
                 (int) jSpinnerNewEventStartHour.getValue(),
                 (int) jSpinnerNewEventStartMinute.getValue());
         Date startDate = calStart.getTime();
+        
         Calendar calEnd = new GregorianCalendar((int) jSpinnerNewEventEndYear.getValue(),
                 (int) jSpinnerNewEventEndMonth.getValue(),
                 (int) jSpinnerNewEventEndDay.getValue(),
@@ -194,6 +199,27 @@ public class CreateEditEvent extends javax.swing.JDialog {
 
     }//GEN-LAST:event_jButtonNewEventCommitActionPerformed
 
+    private void setUp() {
+        jTextFieldNewEventName.setText(event.getName());
+        jTextFieldNewEventNote.setText(event.getNote());
+        
+        Calendar startCalendar = new GregorianCalendar();
+        startCalendar.setTime(event.getStartDate());
+        jSpinnerNewEventStartYear.setValue(startCalendar.get(Calendar.YEAR));
+        jSpinnerNewEventStartMonth.setValue(startCalendar.get(Calendar.MONTH));
+        jSpinnerNewEventStartDay.setValue(startCalendar.get(Calendar.DAY_OF_MONTH));
+        jSpinnerNewEventStartHour.setValue(startCalendar.get(Calendar.HOUR_OF_DAY));
+        jSpinnerNewEventStartMinute.setValue(startCalendar.get(Calendar.MINUTE));
+        
+        Calendar endCalendar = new GregorianCalendar();
+        endCalendar.setTime(event.getEndDate());
+        jSpinnerNewEventEndYear.setValue(endCalendar.get(Calendar.YEAR));
+        jSpinnerNewEventEndMonth.setValue(endCalendar.get(Calendar.MONTH));
+        jSpinnerNewEventEndDay.setValue(endCalendar.get(Calendar.DAY_OF_MONTH));
+        jSpinnerNewEventEndHour.setValue(endCalendar.get(Calendar.HOUR_OF_DAY));
+        jSpinnerNewEventEndMinute.setValue(endCalendar.get(Calendar.MINUTE));
+    }
+    
     private void jButtonNewEventCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNewEventCancelActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButtonNewEventCancelActionPerformed
@@ -203,6 +229,7 @@ public class CreateEditEvent extends javax.swing.JDialog {
      */
     public static void start(Event event) {
         CreateEditEvent.event = event;
+        
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
