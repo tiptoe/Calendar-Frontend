@@ -4,11 +4,20 @@
  */
 package cz.muni.fi.pv168.calendar.frontend;
 
+import cz.muni.fi.pv168.calendar.backend.Attendance;
+import cz.muni.fi.pv168.calendar.backend.Event;
+import cz.muni.fi.pv168.calendar.backend.Person;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.SwingWorker;
+
 /**
  *
  * @author Jan Smerda, Jiri Stary
  */
 public class EventAttendance extends javax.swing.JDialog {
+
+    private static Event event;
 
     /**
      * Creates new form EventAttendance
@@ -16,6 +25,8 @@ public class EventAttendance extends javax.swing.JDialog {
     public EventAttendance(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        jTableAttendance.getColumnModel().getColumn(0).setMinWidth(0);
+        jTableAttendance.getColumnModel().getColumn(0).setMaxWidth(0);
     }
 
     /**
@@ -43,20 +54,19 @@ public class EventAttendance extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jButtonAttendanceEdit = new javax.swing.JButton();
+        jButtonAttendanceDelete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        jTableAttendance.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Name", "E-mail", "Note", "Arrival time"
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
             }
-        ));
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
+
+        jTableAttendance.setModel(new AttendanceTableModel());
         jScrollPane1.setViewportView(jTableAttendance);
 
         jButtonAttendanceCreatePerson.setText("Create new person");
@@ -97,6 +107,15 @@ public class EventAttendance extends javax.swing.JDialog {
 
         jLabel6.setText("Minute:");
 
+        jButtonAttendanceEdit.setText("Edit");
+
+        jButtonAttendanceDelete.setText("Delete");
+        jButtonAttendanceDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAttendanceDeleteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -130,11 +149,15 @@ public class EventAttendance extends javax.swing.JDialog {
                                     .addComponent(jLabel5))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(Minute, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButtonAttendanceAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel6))))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jButtonAttendanceDelete, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(jButtonAttendanceEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jButtonAttendanceAdd, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)))))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -152,7 +175,7 @@ public class EventAttendance extends javax.swing.JDialog {
                     .addComponent(jLabel5)
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(73, 73, 73)
                         .addComponent(jButtonAttendanceCreatePerson)
@@ -166,7 +189,11 @@ public class EventAttendance extends javax.swing.JDialog {
                             .addComponent(jSpinnerAttendanceYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jSpinnerAttendanceHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Minute, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonAttendanceEdit)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonAttendanceDelete)
+                        .addContainerGap(22, Short.MAX_VALUE))))
         );
 
         pack();
@@ -177,13 +204,68 @@ public class EventAttendance extends javax.swing.JDialog {
     }//GEN-LAST:event_jComboBoxNamesActionPerformed
 
     private void jButtonAttendanceCreatePersonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAttendanceCreatePersonActionPerformed
-        // TODO add your handling code here:
+        CreateEditPerson.start(null);
     }//GEN-LAST:event_jButtonAttendanceCreatePersonActionPerformed
+
+    private void jButtonAttendanceDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAttendanceDeleteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonAttendanceDeleteActionPerformed
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        loadAttendanceDatabase();
+        loadComboBox();
+    }//GEN-LAST:event_formWindowGainedFocus
+
+    public void loadAttendanceDatabase() {
+        AttendanceLoadWorker attendanceLoadWorker = new AttendanceLoadWorker();
+        attendanceLoadWorker.execute();
+    }
+
+    private class AttendanceLoadWorker extends SwingWorker<Void, Void> {
+
+        @Override
+        protected Void doInBackground() throws Exception {
+            AttendanceTableModel model = (AttendanceTableModel) jTableAttendance.getModel();
+            model.deleteAllAttendances();
+            List<Attendance> attendances = new ArrayList<Attendance>();
+            attendances = EventsMainWindow.getAttendanceManager().findAttendancesForEvent(event);
+
+            for (Attendance a : attendances) {
+                model.addAttendance(a);
+            }
+
+            return null;
+        }
+    }
+
+    public void loadComboBox() {
+        ComboBoxLoadWorker comboBoxLoadWorker = new ComboBoxLoadWorker();
+        comboBoxLoadWorker.execute();
+    }
+
+    private class ComboBoxLoadWorker extends SwingWorker<Void, Void> {
+
+        @Override
+        protected Void doInBackground() throws Exception {
+            
+
+            List<Person> persons = new ArrayList<Person>();
+            persons = EventsMainWindow.getPersonManager().findAllPersons();
+
+            for (Person p : persons) {
+                jComboBoxNames.addItem(p);
+            }
+
+            return null;
+        }
+    }
 
     /**
      * @param args the command line arguments
      */
-    public static void start() {
+    public static void start(Event event) {
+        EventAttendance.event = event;
+
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -225,6 +307,8 @@ public class EventAttendance extends javax.swing.JDialog {
     private javax.swing.JSpinner Minute;
     private javax.swing.JButton jButtonAttendanceAdd;
     private javax.swing.JButton jButtonAttendanceCreatePerson;
+    private javax.swing.JButton jButtonAttendanceDelete;
+    private javax.swing.JButton jButtonAttendanceEdit;
     private javax.swing.JComboBox jComboBoxNames;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

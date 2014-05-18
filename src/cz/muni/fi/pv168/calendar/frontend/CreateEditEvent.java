@@ -23,6 +23,9 @@ import javax.swing.JOptionPane;
  */
 public class CreateEditEvent extends javax.swing.JDialog {
 
+    private static final Logger logger =
+            Logger.getLogger(EventManagerImpl.class.getName());
+    
     private static Event event;
 
     /**
@@ -162,18 +165,21 @@ public class CreateEditEvent extends javax.swing.JDialog {
 
     private void jButtonNewEventCommitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNewEventCommitActionPerformed
         if (jTextFieldNewEventName.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Please fill in name.");
+            String msg = "Please fill in name.";
+            logger.log(Level.SEVERE, msg);
+            JOptionPane.showMessageDialog(null, msg);
+            return;
         }
         
         Calendar calStart = new GregorianCalendar((int) jSpinnerNewEventStartYear.getValue(),
-                (int) jSpinnerNewEventStartMonth.getValue(),
+                (int) jSpinnerNewEventStartMonth.getValue() - 1,
                 (int) jSpinnerNewEventStartDay.getValue(),
                 (int) jSpinnerNewEventStartHour.getValue(),
                 (int) jSpinnerNewEventStartMinute.getValue());
         Date startDate = calStart.getTime();
         
         Calendar calEnd = new GregorianCalendar((int) jSpinnerNewEventEndYear.getValue(),
-                (int) jSpinnerNewEventEndMonth.getValue(),
+                (int) jSpinnerNewEventEndMonth.getValue() - 1,
                 (int) jSpinnerNewEventEndDay.getValue(),
                 (int) jSpinnerNewEventEndHour.getValue(),
                 (int) jSpinnerNewEventEndMinute.getValue());
@@ -186,15 +192,15 @@ public class CreateEditEvent extends javax.swing.JDialog {
             newEvent.setEndDate(endDate);
             newEvent.setNote(jTextFieldNewEventNote.getText());
             EventsMainWindow.getEventManager().createEvent(newEvent);
-            this.dispose();
         } else {
             event.setName(jTextFieldNewEventName.getText());
             event.setStartDate(startDate);
             event.setEndDate(endDate);
             event.setNote(jTextFieldNewEventNote.getText());
             EventsMainWindow.getEventManager().updateEvent(event);
-            this.dispose();
         }
+        
+         this.dispose();
 
 
     }//GEN-LAST:event_jButtonNewEventCommitActionPerformed
@@ -206,7 +212,7 @@ public class CreateEditEvent extends javax.swing.JDialog {
         Calendar startCalendar = new GregorianCalendar();
         startCalendar.setTime(event.getStartDate());
         jSpinnerNewEventStartYear.setValue(startCalendar.get(Calendar.YEAR));
-        jSpinnerNewEventStartMonth.setValue(startCalendar.get(Calendar.MONTH));
+        jSpinnerNewEventStartMonth.setValue(startCalendar.get(Calendar.MONTH) + 1);
         jSpinnerNewEventStartDay.setValue(startCalendar.get(Calendar.DAY_OF_MONTH));
         jSpinnerNewEventStartHour.setValue(startCalendar.get(Calendar.HOUR_OF_DAY));
         jSpinnerNewEventStartMinute.setValue(startCalendar.get(Calendar.MINUTE));
@@ -214,7 +220,7 @@ public class CreateEditEvent extends javax.swing.JDialog {
         Calendar endCalendar = new GregorianCalendar();
         endCalendar.setTime(event.getEndDate());
         jSpinnerNewEventEndYear.setValue(endCalendar.get(Calendar.YEAR));
-        jSpinnerNewEventEndMonth.setValue(endCalendar.get(Calendar.MONTH));
+        jSpinnerNewEventEndMonth.setValue(endCalendar.get(Calendar.MONTH) + 1);
         jSpinnerNewEventEndDay.setValue(endCalendar.get(Calendar.DAY_OF_MONTH));
         jSpinnerNewEventEndHour.setValue(endCalendar.get(Calendar.HOUR_OF_DAY));
         jSpinnerNewEventEndMinute.setValue(endCalendar.get(Calendar.MINUTE));

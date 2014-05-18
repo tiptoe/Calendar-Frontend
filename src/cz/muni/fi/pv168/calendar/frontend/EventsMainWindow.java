@@ -18,9 +18,12 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Properties;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sql.DataSource;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 import org.apache.commons.dbcp.BasicDataSource;
 
@@ -30,6 +33,8 @@ import org.apache.commons.dbcp.BasicDataSource;
  */
 public class EventsMainWindow extends javax.swing.JFrame {
 
+    private static final Logger logger =
+            Logger.getLogger(EventManagerImpl.class.getName());
     private static EventManagerImpl eventManager;
     private static PersonManagerImpl personManager;
     private static AttendanceManagerImpl attendanceManager;
@@ -51,10 +56,10 @@ public class EventsMainWindow extends javax.swing.JFrame {
      */
     public EventsMainWindow() {
         initComponents();
-        //jTableEvents.removeColumn(jTableEvents.getColumnModel().getColumn(0));
         jTableEvents.getColumnModel().getColumn(0).setMinWidth(0);
         jTableEvents.getColumnModel().getColumn(0).setMaxWidth(0);
-        loadEventDatabase();
+        jTablePeople.getColumnModel().getColumn(0).setMinWidth(0);
+        jTablePeople.getColumnModel().getColumn(0).setMaxWidth(0);
 
     }
 
@@ -86,7 +91,6 @@ public class EventsMainWindow extends javax.swing.JFrame {
         jSpinnerEventEndDay = new javax.swing.JSpinner();
         jSpinnerEventEndMonth = new javax.swing.JSpinner();
         jSpinnerEventEndYear = new javax.swing.JSpinner();
-        jButtonLoadDatabase = new javax.swing.JButton();
         jPanelPeople = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTablePeople = new javax.swing.JTable();
@@ -106,6 +110,13 @@ public class EventsMainWindow extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
 
         jTableEvents.setModel(new EventTableModel());
         jScrollPane1.setViewportView(jTableEvents);
@@ -136,6 +147,11 @@ public class EventsMainWindow extends javax.swing.JFrame {
         jLabel2.setText("End Date");
 
         jButtonEventShow.setText("Show attendance");
+        jButtonEventShow.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEventShowActionPerformed(evt);
+            }
+        });
 
         jButtonEventClear.setText("Clear selection");
         jButtonEventClear.addActionListener(new java.awt.event.ActionListener() {
@@ -163,13 +179,6 @@ public class EventsMainWindow extends javax.swing.JFrame {
 
         jSpinnerEventEndYear.setModel(new javax.swing.SpinnerNumberModel(2014, 1970, 2100, 1));
 
-        jButtonLoadDatabase.setText("Load database");
-        jButtonLoadDatabase.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonLoadDatabaseActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanelEventLayout = new javax.swing.GroupLayout(jPanelEvent);
         jPanelEvent.setLayout(jPanelEventLayout);
         jPanelEventLayout.setHorizontalGroup(
@@ -183,7 +192,7 @@ public class EventsMainWindow extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelEventLayout.createSequentialGroup()
                         .addGap(96, 96, 96)
                         .addGroup(jPanelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonEventDelete, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
+                            .addComponent(jButtonEventDelete, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
                             .addComponent(jButtonEventCreate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButtonEventEdit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE))
                         .addGroup(jPanelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,7 +204,7 @@ public class EventsMainWindow extends javax.swing.JFrame {
                                     .addGroup(jPanelEventLayout.createSequentialGroup()
                                         .addGap(18, 18, 18)
                                         .addComponent(jButtonEventShow)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 123, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
                                         .addComponent(jLabel1)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -204,17 +213,15 @@ public class EventsMainWindow extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelEventLayout.createSequentialGroup()
-                                        .addComponent(jSpinnerEventStartMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jSpinnerEventStartMonth)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jSpinnerEventStartYear, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanelEventLayout.createSequentialGroup()
-                                        .addComponent(jSpinnerEventEndMonth, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+                                        .addComponent(jSpinnerEventEndMonth, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jSpinnerEventEndYear, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(jPanelEventLayout.createSequentialGroup()
-                                .addGap(52, 52, 52)
-                                .addComponent(jButtonLoadDatabase)
-                                .addGap(167, 167, 167)
+                                .addGap(322, 322, 322)
                                 .addGroup(jPanelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jButtonEventSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jButtonEventClear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -251,32 +258,35 @@ public class EventsMainWindow extends javax.swing.JFrame {
                     .addComponent(jButtonEventDelete)
                     .addComponent(jButtonEventSearch))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonEventClear)
-                    .addComponent(jButtonLoadDatabase))
-                .addContainerGap(119, Short.MAX_VALUE))
+                .addComponent(jButtonEventClear)
+                .addContainerGap(127, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Events", jPanelEvent);
 
-        jTablePeople.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "Name", "E-mail", "Note"
-            }
-        ));
+        jTablePeople.setModel(new PersonTableModel());
         jScrollPane2.setViewportView(jTablePeople);
 
         jButtonPeopleCreate.setText("Create new");
+        jButtonPeopleCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPeopleCreateActionPerformed(evt);
+            }
+        });
 
         jButtonPeopleEdit.setText("Edit selected");
+        jButtonPeopleEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPeopleEditActionPerformed(evt);
+            }
+        });
 
         jButtonPeopleDelete.setText("Delete selected");
+        jButtonPeopleDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPeopleDeleteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelPeopleLayout = new javax.swing.GroupLayout(jPanelPeople);
         jPanelPeople.setLayout(jPanelPeopleLayout);
@@ -288,11 +298,10 @@ public class EventsMainWindow extends javax.swing.JFrame {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 918, Short.MAX_VALUE)
                     .addGroup(jPanelPeopleLayout.createSequentialGroup()
                         .addGap(288, 288, 288)
-                        .addGroup(jPanelPeopleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonPeopleDelete)
-                            .addGroup(jPanelPeopleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jButtonPeopleEdit, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
-                                .addComponent(jButtonPeopleCreate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(jPanelPeopleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButtonPeopleCreate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonPeopleEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonPeopleDelete, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -328,25 +337,31 @@ public class EventsMainWindow extends javax.swing.JFrame {
 
     private void jButtonEventCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEventCreateActionPerformed
         CreateEditEvent.start(null);
-        //loadEventDatabase();
     }//GEN-LAST:event_jButtonEventCreateActionPerformed
 
-    private void jButtonLoadDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoadDatabaseActionPerformed
-        loadEventDatabase();
-    }//GEN-LAST:event_jButtonLoadDatabaseActionPerformed
-
     private void jButtonEventEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEventEditActionPerformed
-        Event event = new Event();
-        event = getEventManager().getEventById((Integer) jTableEvents.getValueAt(jTableEvents.getSelectedRow(), 0));
-        CreateEditEvent.start(event);
-        //loadEventDatabase();
+        try {
+            Event event = new Event();
+            event = getEventManager().getEventById((Integer) jTableEvents.getValueAt(jTableEvents.getSelectedRow(), 0));
+            CreateEditEvent.start(event);
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            String msg = "No event is selected.";
+            logger.log(Level.SEVERE, msg, ex);
+            JOptionPane.showMessageDialog(this, msg);
+        }
     }//GEN-LAST:event_jButtonEventEditActionPerformed
 
     private void jButtonEventDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEventDeleteActionPerformed
-        Event event = new Event();
-        event = getEventManager().getEventById((Integer) jTableEvents.getValueAt(jTableEvents.getSelectedRow(), 0));
-        getEventManager().deleteEvent(event);
-        loadEventDatabase();
+        try {
+            Event event = new Event();
+            event = getEventManager().getEventById((Integer) jTableEvents.getValueAt(jTableEvents.getSelectedRow(), 0));
+            getEventManager().deleteEvent(event);
+            loadEventDatabase();
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            String msg = "No event is selected.";
+            logger.log(Level.SEVERE, msg, ex);
+            JOptionPane.showMessageDialog(this, msg);
+        }
     }//GEN-LAST:event_jButtonEventDeleteActionPerformed
 
     private void jButtonEventClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEventClearActionPerformed
@@ -354,19 +369,65 @@ public class EventsMainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonEventClearActionPerformed
 
     private void jButtonEventSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEventSearchActionPerformed
-       Calendar calStart = new GregorianCalendar((int) jSpinnerEventStartYear.getValue(),
-                (int) jSpinnerEventStartMonth.getValue(),
+        Calendar calStart = new GregorianCalendar((int) jSpinnerEventStartYear.getValue(),
+                (int) jSpinnerEventStartMonth.getValue() - 1,
                 (int) jSpinnerEventStartDay.getValue());
         Date startDate = calStart.getTime();
-        
+
         Calendar calEnd = new GregorianCalendar((int) jSpinnerEventEndYear.getValue(),
-                (int) jSpinnerEventEndMonth.getValue(),
+                (int) jSpinnerEventEndMonth.getValue() - 1,
                 (int) jSpinnerEventEndDay.getValue());
         Date endDate = calEnd.getTime();
-        
+
         loadEventSearch(startDate, endDate);
-        
+
     }//GEN-LAST:event_jButtonEventSearchActionPerformed
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        loadEventDatabase();
+        loadPersonDatabase();
+    }//GEN-LAST:event_formWindowGainedFocus
+
+    private void jButtonPeopleCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPeopleCreateActionPerformed
+        CreateEditPerson.start(null);
+    }//GEN-LAST:event_jButtonPeopleCreateActionPerformed
+
+    private void jButtonPeopleDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPeopleDeleteActionPerformed
+        try {
+            Person person = new Person();
+            person = getPersonManager().getPersonById((Integer) jTablePeople.getValueAt(jTablePeople.getSelectedRow(), 0));
+            getPersonManager().deletePerson(person);
+            loadPersonDatabase();
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            String msg = "No person is selected.";
+            logger.log(Level.SEVERE, msg, ex);
+            JOptionPane.showMessageDialog(this, msg);
+        }
+    }//GEN-LAST:event_jButtonPeopleDeleteActionPerformed
+
+    private void jButtonPeopleEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPeopleEditActionPerformed
+        try {
+            Person person = new Person();
+            person = getPersonManager().getPersonById((Integer) jTablePeople.getValueAt(jTablePeople.getSelectedRow(), 0));
+            CreateEditPerson.start(person);
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            String msg = "No person is selected.";
+            logger.log(Level.SEVERE, msg, ex);
+            JOptionPane.showMessageDialog(this, msg);
+        }
+    }//GEN-LAST:event_jButtonPeopleEditActionPerformed
+
+    private void jButtonEventShowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEventShowActionPerformed
+        try {
+            Event event = new Event();
+            event = getEventManager().getEventById((Integer) jTableEvents.getValueAt(jTableEvents.getSelectedRow(), 0));
+            EventAttendance.start(event);
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            String msg = "No event is selected.";
+            logger.log(Level.SEVERE, msg, ex);
+            JOptionPane.showMessageDialog(this, msg);
+        }
+    }//GEN-LAST:event_jButtonEventShowActionPerformed
 
     private void loadEventDatabase() {
         Date startDate = new Date(0L);
@@ -375,32 +436,55 @@ public class EventsMainWindow extends javax.swing.JFrame {
         EventLoadWorker loadWorker = new EventLoadWorker(startDate, endDate);
         loadWorker.execute();
     }
-    
+
     private void loadEventSearch(Date startDate, Date endDate) {
         EventLoadWorker loadWorker = new EventLoadWorker(startDate, endDate);
         loadWorker.execute();
     }
 
     private class EventLoadWorker extends SwingWorker<Void, Void> {
+
         private Date startDate;
         private Date endDate = new Date();
-        
+
         public EventLoadWorker(Date startDate, Date endDate) {
             this.startDate = startDate;
             this.endDate = endDate;
         }
-        
+
         @Override
         protected Void doInBackground() throws Exception {
             EventTableModel model = (EventTableModel) jTableEvents.getModel();
             model.deleteAllEvents();
             List<Event> events = new ArrayList<Event>();
             events = eventManager.findEventsByDate(startDate, endDate);
-            
+
             for (Event e : events) {
                 model.addEvent(e);
             }
-            
+
+            return null;
+        }
+    }
+
+    public void loadPersonDatabase() {
+        PersonLoadWorker personLoadWorker = new PersonLoadWorker();
+        personLoadWorker.execute();
+    }
+
+    private class PersonLoadWorker extends SwingWorker<Void, Void> {
+
+        @Override
+        protected Void doInBackground() throws Exception {
+            PersonTableModel model = (PersonTableModel) jTablePeople.getModel();
+            model.deleteAllPersons();
+            List<Person> persons = new ArrayList<Person>();
+            persons = personManager.findAllPersons();
+
+            for (Person p : persons) {
+                model.addPerson(p);
+            }
+
             return null;
         }
     }
@@ -431,21 +515,15 @@ public class EventsMainWindow extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(EventsMainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        Properties prop = new Properties();
-        /*
-         * nacist properties - prop.load(InputStream is) nacita properties soubor z InputStreamu
-        
-         BasicDataSource ds = new BasicDataSource();
-         ds.setDriverClassName(prop.getProperty("jdbcDriverClassName"));
-         ds.setUrl(prop.getProperty("jdbcUrl"));
-         ds.setUsername(prop.getProperty("jdbcUsername"));
-         ds.setPassword(prop.getProperty("jdbcPassword"));
-         */
+
+        ResourceBundle databaseProperties = ResourceBundle.getBundle("cz.muni.fi.pv168.calendar.common.db");
+
+
         BasicDataSource ds = new BasicDataSource();
-        ds.setDriverClassName("org.apache.derby.jdbc.ClientDriver");
-        ds.setUrl("jdbc:derby://localhost:1527/calendarDB");
-        ds.setUsername("calendar");
-        ds.setPassword("admin");
+        ds.setUrl(databaseProperties.getString("jdbcUrl"));
+        ds.setDriverClassName(databaseProperties.getString("jdbcDriverClassName"));
+        ds.setUsername(databaseProperties.getString("jdbcUsername"));
+        ds.setPassword(databaseProperties.getString("jdbcPassword"));
         personManager = new PersonManagerImpl();
         personManager.setDataSource(ds);
         eventManager = new EventManagerImpl();
@@ -468,7 +546,6 @@ public class EventsMainWindow extends javax.swing.JFrame {
     private javax.swing.JButton jButtonEventEdit;
     private javax.swing.JButton jButtonEventSearch;
     private javax.swing.JButton jButtonEventShow;
-    private javax.swing.JButton jButtonLoadDatabase;
     private javax.swing.JButton jButtonPeopleCreate;
     private javax.swing.JButton jButtonPeopleDelete;
     private javax.swing.JButton jButtonPeopleEdit;
