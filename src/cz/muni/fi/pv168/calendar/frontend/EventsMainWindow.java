@@ -18,6 +18,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Properties;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sql.DataSource;
@@ -431,21 +432,15 @@ public class EventsMainWindow extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(EventsMainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        Properties prop = new Properties();
-        /*
-         * nacist properties - prop.load(InputStream is) nacita properties soubor z InputStreamu
         
-         BasicDataSource ds = new BasicDataSource();
-         ds.setDriverClassName(prop.getProperty("jdbcDriverClassName"));
-         ds.setUrl(prop.getProperty("jdbcUrl"));
-         ds.setUsername(prop.getProperty("jdbcUsername"));
-         ds.setPassword(prop.getProperty("jdbcPassword"));
-         */
+        ResourceBundle databaseProperties = ResourceBundle.getBundle("cz.muni.fi.pv168.calendar.common.db");
+        
         BasicDataSource ds = new BasicDataSource();
-        ds.setDriverClassName("org.apache.derby.jdbc.ClientDriver");
-        ds.setUrl("jdbc:derby://localhost:1527/calendarDB");
-        ds.setUsername("calendar");
-        ds.setPassword("admin");
+        ds.setUrl(databaseProperties.getString("jdbcUrl"));
+        ds.setDriverClassName(databaseProperties.getString("jdbcDriverClassName"));
+        ds.setUsername(databaseProperties.getString("jdbcUsername"));
+        ds.setPassword(databaseProperties.getString("jdbcPassword"));
+        
         personManager = new PersonManagerImpl();
         personManager.setDataSource(ds);
         eventManager = new EventManagerImpl();
