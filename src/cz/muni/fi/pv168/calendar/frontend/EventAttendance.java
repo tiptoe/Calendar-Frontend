@@ -8,7 +8,11 @@ import cz.muni.fi.pv168.calendar.backend.Attendance;
 import cz.muni.fi.pv168.calendar.backend.Event;
 import cz.muni.fi.pv168.calendar.backend.Person;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 
 /**
@@ -47,7 +51,7 @@ public class EventAttendance extends javax.swing.JDialog {
         jSpinnerAttendanceDay = new javax.swing.JSpinner();
         jSpinnerAttendanceYear = new javax.swing.JSpinner();
         jSpinnerAttendanceHour = new javax.swing.JSpinner();
-        Minute = new javax.swing.JSpinner();
+        jSpinnerAttendanceMinute = new javax.swing.JSpinner();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -76,7 +80,7 @@ public class EventAttendance extends javax.swing.JDialog {
             }
         });
 
-        jComboBoxNames.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxNames.setModel(new PersonComboBoxModel());
         jComboBoxNames.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxNamesActionPerformed(evt);
@@ -84,6 +88,11 @@ public class EventAttendance extends javax.swing.JDialog {
         });
 
         jButtonAttendanceAdd.setText("Add");
+        jButtonAttendanceAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAttendanceAddActionPerformed(evt);
+            }
+        });
 
         jSpinnerAttendanceMonth.setModel(new javax.swing.SpinnerNumberModel(1, 1, 12, 1));
 
@@ -93,7 +102,7 @@ public class EventAttendance extends javax.swing.JDialog {
 
         jSpinnerAttendanceHour.setModel(new javax.swing.SpinnerNumberModel(0, 0, 23, 1));
 
-        Minute.setModel(new javax.swing.SpinnerNumberModel(0, 0, 59, 1));
+        jSpinnerAttendanceMinute.setModel(new javax.swing.SpinnerNumberModel(0, 0, 59, 1));
 
         jLabel1.setText("Person:");
 
@@ -151,13 +160,12 @@ public class EventAttendance extends javax.swing.JDialog {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(Minute, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jSpinnerAttendanceMinute, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(jButtonAttendanceDelete, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(jButtonAttendanceEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(jButtonAttendanceAdd, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)))))))
+                                            .addComponent(jButtonAttendanceEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jButtonAttendanceAdd, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE))))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -188,7 +196,7 @@ public class EventAttendance extends javax.swing.JDialog {
                             .addComponent(jSpinnerAttendanceMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jSpinnerAttendanceYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jSpinnerAttendanceHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Minute, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jSpinnerAttendanceMinute, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonAttendanceEdit)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -208,13 +216,42 @@ public class EventAttendance extends javax.swing.JDialog {
     }//GEN-LAST:event_jButtonAttendanceCreatePersonActionPerformed
 
     private void jButtonAttendanceDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAttendanceDeleteActionPerformed
-        // TODO add your handling code here:
+        try {
+            //TODO Zlepsit.
+            Attendance attendance = new Attendance();
+            attendance = EventsMainWindow.getAttendanceManager().getAttendanceById((Integer) jTableAttendance.getValueAt(jTableAttendance.getSelectedRow(), 0));
+            EventsMainWindow.getAttendanceManager().deleteAttendance(attendance);
+            loadAttendanceDatabase();
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            String msg = "No attendance is selected.";
+            //logger.log(Level.SEVERE, msg, ex);
+            JOptionPane.showMessageDialog(this, msg);
+        }
     }//GEN-LAST:event_jButtonAttendanceDeleteActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
         loadAttendanceDatabase();
         loadComboBox();
     }//GEN-LAST:event_formWindowGainedFocus
+
+    private void jButtonAttendanceAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAttendanceAddActionPerformed
+        PersonComboBoxModel model = (PersonComboBoxModel) jComboBoxNames.getModel();
+        
+        Calendar calendar = new GregorianCalendar(
+            (int) jSpinnerAttendanceYear.getValue(),
+            (int) jSpinnerAttendanceMonth.getValue() - 1,
+            (int) jSpinnerAttendanceDay.getValue(),
+            (int) jSpinnerAttendanceHour.getValue(),
+            (int) jSpinnerAttendanceMinute.getValue());
+        Date date = calendar.getTime();        
+        
+        Attendance attendance = new Attendance();
+        attendance.setEvent(event);
+        attendance.setPerson((Person) model.getSelectedItem());
+        attendance.setPlannedArrivalTime(date);
+        EventsMainWindow.getAttendanceManager().createAttendance(attendance);
+        loadAttendanceDatabase();
+    }//GEN-LAST:event_jButtonAttendanceAddActionPerformed
 
     public void loadAttendanceDatabase() {
         AttendanceLoadWorker attendanceLoadWorker = new AttendanceLoadWorker();
@@ -248,12 +285,14 @@ public class EventAttendance extends javax.swing.JDialog {
         @Override
         protected Void doInBackground() throws Exception {
             
-
+            PersonComboBoxModel model = (PersonComboBoxModel) jComboBoxNames.getModel();
+            model.deleteAllPersons();
             List<Person> persons = new ArrayList<Person>();
             persons = EventsMainWindow.getPersonManager().findAllPersons();
 
             for (Person p : persons) {
-                jComboBoxNames.addItem(p);
+                //jComboBoxNames.addItem(p.getName());
+                model.addPerson(p);
             }
 
             return null;
@@ -304,7 +343,6 @@ public class EventAttendance extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JSpinner Minute;
     private javax.swing.JButton jButtonAttendanceAdd;
     private javax.swing.JButton jButtonAttendanceCreatePerson;
     private javax.swing.JButton jButtonAttendanceDelete;
@@ -319,6 +357,7 @@ public class EventAttendance extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner jSpinnerAttendanceDay;
     private javax.swing.JSpinner jSpinnerAttendanceHour;
+    private javax.swing.JSpinner jSpinnerAttendanceMinute;
     private javax.swing.JSpinner jSpinnerAttendanceMonth;
     private javax.swing.JSpinner jSpinnerAttendanceYear;
     private javax.swing.JTable jTableAttendance;
