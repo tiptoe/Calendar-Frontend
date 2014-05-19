@@ -117,6 +117,11 @@ public class EventAttendance extends javax.swing.JDialog {
         jLabel6.setText("Minute:");
 
         jButtonAttendanceEdit.setText("Edit");
+        jButtonAttendanceEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAttendanceEditActionPerformed(evt);
+            }
+        });
 
         jButtonAttendanceDelete.setText("Delete");
         jButtonAttendanceDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -217,11 +222,11 @@ public class EventAttendance extends javax.swing.JDialog {
 
     private void jButtonAttendanceDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAttendanceDeleteActionPerformed
         try {
-            //TODO Zlepsit.
-            Attendance attendance = new Attendance();
-            attendance = EventsMainWindow.getAttendanceManager().getAttendanceById((Integer) jTableAttendance.getValueAt(jTableAttendance.getSelectedRow(), 0));
+            Attendance attendance = EventsMainWindow.getAttendanceManager()
+                    .getAttendanceById((Integer) jTableAttendance.getValueAt(jTableAttendance.getSelectedRow(), 0));
             EventsMainWindow.getAttendanceManager().deleteAttendance(attendance);
             loadAttendanceDatabase();
+            loadComboBox();  
         } catch (ArrayIndexOutOfBoundsException ex) {
             String msg = "No attendance is selected.";
             //logger.log(Level.SEVERE, msg, ex);
@@ -243,15 +248,23 @@ public class EventAttendance extends javax.swing.JDialog {
             (int) jSpinnerAttendanceDay.getValue(),
             (int) jSpinnerAttendanceHour.getValue(),
             (int) jSpinnerAttendanceMinute.getValue());
-        Date date = calendar.getTime();        
+        Date date = calendar.getTime(); 
+        
+        int index = jComboBoxNames.getSelectedIndex();
         
         Attendance attendance = new Attendance();
-        attendance.setEvent(event);
-        attendance.setPerson((Person) model.getSelectedItem());
+        attendance.setEvent(event);       
+        attendance.setPerson((Person) model.getSelectedPerson(index));
         attendance.setPlannedArrivalTime(date);
         EventsMainWindow.getAttendanceManager().createAttendance(attendance);
+
         loadAttendanceDatabase();
+        loadComboBox();        
     }//GEN-LAST:event_jButtonAttendanceAddActionPerformed
+
+    private void jButtonAttendanceEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAttendanceEditActionPerformed
+        
+    }//GEN-LAST:event_jButtonAttendanceEditActionPerformed
 
     public void loadAttendanceDatabase() {
         AttendanceLoadWorker attendanceLoadWorker = new AttendanceLoadWorker();
@@ -270,7 +283,6 @@ public class EventAttendance extends javax.swing.JDialog {
             for (Attendance a : attendances) {
                 model.addAttendance(a);
             }
-
             return null;
         }
     }
@@ -284,15 +296,23 @@ public class EventAttendance extends javax.swing.JDialog {
 
         @Override
         protected Void doInBackground() throws Exception {
-            
-            PersonComboBoxModel model = (PersonComboBoxModel) jComboBoxNames.getModel();
-            model.deleteAllPersons();
+            PersonComboBoxModel modelPerson = (PersonComboBoxModel) jComboBoxNames.getModel();
+            modelPerson.deleteAllPersons();            
             List<Person> persons = new ArrayList<Person>();
             persons = EventsMainWindow.getPersonManager().findAllPersons();
-
+            
+            AttendanceTableModel modelAttendance = (AttendanceTableModel) jTableAttendance.getModel();
+            modelAttendance.deleteAllAttendances();
+            List<Attendance> attendances = new ArrayList<Attendance>();
+            attendances = EventsMainWindow.getAttendanceManager().findAttendancesForEvent(event);
+            
+            // remove persons that are already added
+            for (Attendance a : attendances) {
+                persons.remove(a.getPerson());
+            }
+            
             for (Person p : persons) {
-                //jComboBoxNames.addItem(p.getName());
-                model.addPerson(p);
+                modelPerson.addPerson(p);
             }
 
             return null;
