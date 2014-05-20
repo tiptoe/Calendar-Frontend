@@ -89,6 +89,7 @@ public class EventsMainWindow extends javax.swing.JFrame {
         jSpinnerEventEndDay = new javax.swing.JSpinner();
         jSpinnerEventEndMonth = new javax.swing.JSpinner();
         jSpinnerEventEndYear = new javax.swing.JSpinner();
+        jLabel3 = new javax.swing.JLabel();
         jPanelPeople = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTablePeople = new javax.swing.JTable();
@@ -178,6 +179,9 @@ public class EventsMainWindow extends javax.swing.JFrame {
 
         jSpinnerEventEndYear.setModel(new javax.swing.SpinnerNumberModel(2014, 1970, 2100, 1));
 
+        jLabel3.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel3.setText(Strings.getString("search") + ":");
+
         javax.swing.GroupLayout jPanelEventLayout = new javax.swing.GroupLayout(jPanelEvent);
         jPanelEvent.setLayout(jPanelEventLayout);
         jPanelEventLayout.setHorizontalGroup(
@@ -185,46 +189,39 @@ public class EventsMainWindow extends javax.swing.JFrame {
             .addGroup(jPanelEventLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 970, Short.MAX_VALUE)
                     .addGroup(jPanelEventLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 807, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelEventLayout.createSequentialGroup()
-                        .addGap(96, 96, 96)
-                        .addGroup(jPanelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonEventDelete, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
-                            .addComponent(jButtonEventCreate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButtonEventEdit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE))
+                        .addGroup(jPanelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jButtonEventCreate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                            .addComponent(jButtonEventEdit, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonEventDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonEventShow, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(76, 76, 76)
                         .addGroup(jPanelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelEventLayout.createSequentialGroup()
+                                .addGroup(jPanelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2))
                                 .addGap(18, 18, 18)
-                                .addGroup(jPanelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanelEventLayout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(jLabel2))
-                                    .addGroup(jPanelEventLayout.createSequentialGroup()
-                                        .addComponent(jButtonEventShow)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
-                                        .addComponent(jLabel1)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jSpinnerEventEndDay)
-                                    .addComponent(jSpinnerEventStartDay))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelEventLayout.createSequentialGroup()
-                                        .addComponent(jSpinnerEventStartMonth)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jSpinnerEventStartYear, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanelEventLayout.createSequentialGroup()
-                                        .addComponent(jSpinnerEventEndMonth, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
+                                        .addGroup(jPanelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jSpinnerEventStartDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jSpinnerEventEndDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jSpinnerEventEndYear, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(jPanelEventLayout.createSequentialGroup()
-                                .addGap(322, 322, 322)
-                                .addGroup(jPanelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jSpinnerEventStartMonth)
+                                            .addComponent(jSpinnerEventEndMonth))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jSpinnerEventStartYear)
+                                            .addComponent(jSpinnerEventEndYear)))
                                     .addComponent(jButtonEventSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButtonEventClear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(20, 20, 20))))
+                                    .addComponent(jButtonEventClear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jLabel3))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanelEventLayout.setVerticalGroup(
             jPanelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -233,32 +230,35 @@ public class EventsMainWindow extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelEventLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jSpinnerEventStartDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSpinnerEventStartMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSpinnerEventStartYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)))
-                    .addGroup(jPanelEventLayout.createSequentialGroup()
                         .addGap(11, 11, 11)
                         .addGroup(jPanelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButtonEventCreate)
-                            .addComponent(jButtonEventShow))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonEventEdit)
-                    .addGroup(jPanelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jSpinnerEventEndMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jSpinnerEventEndDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jSpinnerEventEndYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonEventDelete)
-                    .addComponent(jButtonEventSearch))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonEventClear)
-                .addContainerGap(19, Short.MAX_VALUE))
+                            .addComponent(jButtonEventShow)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonEventEdit)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonEventDelete)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanelEventLayout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addGroup(jPanelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jSpinnerEventStartDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSpinnerEventStartMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSpinnerEventStartYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addGroup(jPanelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jSpinnerEventEndDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jSpinnerEventEndMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jSpinnerEventEndYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonEventSearch)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonEventClear)
+                        .addContainerGap())))
         );
 
         jTabbedPane1.addTab("Events", jPanelEvent);
@@ -295,7 +295,7 @@ public class EventsMainWindow extends javax.swing.JFrame {
             .addGroup(jPanelPeopleLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelPeopleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 965, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 970, Short.MAX_VALUE)
                     .addGroup(jPanelPeopleLayout.createSequentialGroup()
                         .addGap(288, 288, 288)
                         .addGroup(jPanelPeopleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -316,7 +316,7 @@ public class EventsMainWindow extends javax.swing.JFrame {
                 .addComponent(jButtonPeopleEdit)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonPeopleDelete)
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("People", jPanelPeople);
@@ -337,54 +337,6 @@ public class EventsMainWindow extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButtonEventCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEventCreateActionPerformed
-        CreateEditEvent.start(null);
-    }//GEN-LAST:event_jButtonEventCreateActionPerformed
-
-    private void jButtonEventEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEventEditActionPerformed
-        try {
-            Event event = new Event();
-            event = getEventManager().getEventById((Integer) jTableEvents.getValueAt(jTableEvents.getSelectedRow(), 0));
-            CreateEditEvent.start(event);
-        } catch (ArrayIndexOutOfBoundsException ex) {
-            String msg = Strings.getString("no_event_is_selected");
-            logger.error(msg, ex);
-            JOptionPane.showMessageDialog(this, msg);
-        }
-    }//GEN-LAST:event_jButtonEventEditActionPerformed
-
-    private void jButtonEventDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEventDeleteActionPerformed
-        try {
-            Event event = new Event();
-            event = getEventManager().getEventById((Integer) jTableEvents.getValueAt(jTableEvents.getSelectedRow(), 0));
-            getEventManager().deleteEvent(event);
-            loadEventDatabase();
-        } catch (ArrayIndexOutOfBoundsException ex) {
-            String msg = Strings.getString("no_event_is_selected");
-            logger.error(msg, ex);
-            JOptionPane.showMessageDialog(this, msg);
-        }
-    }//GEN-LAST:event_jButtonEventDeleteActionPerformed
-
-    private void jButtonEventClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEventClearActionPerformed
-        loadEventDatabase();
-    }//GEN-LAST:event_jButtonEventClearActionPerformed
-
-    private void jButtonEventSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEventSearchActionPerformed
-        Calendar calStart = new GregorianCalendar((int) jSpinnerEventStartYear.getValue(),
-                (int) jSpinnerEventStartMonth.getValue() - 1,
-                (int) jSpinnerEventStartDay.getValue());
-        Date startDate = calStart.getTime();
-
-        Calendar calEnd = new GregorianCalendar((int) jSpinnerEventEndYear.getValue(),
-                (int) jSpinnerEventEndMonth.getValue() - 1,
-                (int) jSpinnerEventEndDay.getValue());
-        Date endDate = calEnd.getTime();
-
-        loadEventSearch(startDate, endDate);
-
-    }//GEN-LAST:event_jButtonEventSearchActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
         loadEventDatabase();
@@ -420,6 +372,23 @@ public class EventsMainWindow extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonPeopleEditActionPerformed
 
+    private void jButtonEventDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEventDeleteActionPerformed
+        try {
+            Event event = new Event();
+            event = getEventManager().getEventById((Integer) jTableEvents.getValueAt(jTableEvents.getSelectedRow(), 0));
+            getEventManager().deleteEvent(event);
+            loadEventDatabase();
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            String msg = Strings.getString("no_event_is_selected");
+            logger.error(msg, ex);
+            JOptionPane.showMessageDialog(this, msg);
+        }
+    }//GEN-LAST:event_jButtonEventDeleteActionPerformed
+
+    private void jButtonEventClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEventClearActionPerformed
+        loadEventDatabase();
+    }//GEN-LAST:event_jButtonEventClearActionPerformed
+
     private void jButtonEventShowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEventShowActionPerformed
         try {
             Event event = new Event();
@@ -431,6 +400,36 @@ public class EventsMainWindow extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, msg);
         }
     }//GEN-LAST:event_jButtonEventShowActionPerformed
+
+    private void jButtonEventSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEventSearchActionPerformed
+        Calendar calStart = new GregorianCalendar((int) jSpinnerEventStartYear.getValue(),
+            (int) jSpinnerEventStartMonth.getValue() - 1,
+            (int) jSpinnerEventStartDay.getValue());
+        Date startDate = calStart.getTime();
+
+        Calendar calEnd = new GregorianCalendar((int) jSpinnerEventEndYear.getValue(),
+            (int) jSpinnerEventEndMonth.getValue() - 1,
+            (int) jSpinnerEventEndDay.getValue());
+        Date endDate = calEnd.getTime();
+
+        loadEventSearch(startDate, endDate);
+    }//GEN-LAST:event_jButtonEventSearchActionPerformed
+
+    private void jButtonEventEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEventEditActionPerformed
+        try {
+            Event event = new Event();
+            event = getEventManager().getEventById((Integer) jTableEvents.getValueAt(jTableEvents.getSelectedRow(), 0));
+            CreateEditEvent.start(event);
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            String msg = Strings.getString("no_event_is_selected");
+            logger.error(msg, ex);
+            JOptionPane.showMessageDialog(this, msg);
+        }
+    }//GEN-LAST:event_jButtonEventEditActionPerformed
+
+    private void jButtonEventCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEventCreateActionPerformed
+        CreateEditEvent.start(null);
+    }//GEN-LAST:event_jButtonEventCreateActionPerformed
 
     private void loadEventDatabase() {
         Date startDate = new Date(0L);
@@ -555,6 +554,7 @@ public class EventsMainWindow extends javax.swing.JFrame {
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanelEvent;
     private javax.swing.JPanel jPanelPeople;
     private javax.swing.JScrollPane jScrollPane1;
