@@ -35,6 +35,8 @@ public class EventAttendance extends javax.swing.JDialog {
         initComponents();
         jTableAttendance.getColumnModel().getColumn(0).setMinWidth(0);
         jTableAttendance.getColumnModel().getColumn(0).setMaxWidth(0);
+        jTableAttendance.getColumnModel().getColumn(1).setMinWidth(0);
+        jTableAttendance.getColumnModel().getColumn(1).setMaxWidth(0);
     }
 
     /**
@@ -65,6 +67,7 @@ public class EventAttendance extends javax.swing.JDialog {
         jButtonAttendanceDelete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle(event.getName());
         addWindowFocusListener(new java.awt.event.WindowFocusListener() {
             public void windowGainedFocus(java.awt.event.WindowEvent evt) {
                 formWindowGainedFocus(evt);
