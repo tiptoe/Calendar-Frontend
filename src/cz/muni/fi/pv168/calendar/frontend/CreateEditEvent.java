@@ -5,10 +5,6 @@
 package cz.muni.fi.pv168.calendar.frontend;
 
 import cz.muni.fi.pv168.calendar.backend.Event;
-import cz.muni.fi.pv168.calendar.backend.EventManager;
-import cz.muni.fi.pv168.calendar.backend.EventManagerImpl;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;

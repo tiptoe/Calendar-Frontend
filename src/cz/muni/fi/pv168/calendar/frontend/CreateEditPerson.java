@@ -4,7 +4,6 @@
  */
 package cz.muni.fi.pv168.calendar.frontend;
 
-import cz.muni.fi.pv168.calendar.backend.PersonManagerImpl;
 import cz.muni.fi.pv168.calendar.backend.Person;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
