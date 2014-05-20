@@ -25,7 +25,6 @@ public class CreateEditEvent extends javax.swing.JDialog {
 
     private static final Logger logger =
             LoggerFactory.getLogger(CreateEditEvent.class);
-    
     private static Event event;
 
     /**
@@ -170,37 +169,51 @@ public class CreateEditEvent extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, msg);
             return;
         }
-        
+
         Calendar calStart = new GregorianCalendar((int) jSpinnerNewEventStartYear.getValue(),
                 (int) jSpinnerNewEventStartMonth.getValue() - 1,
                 (int) jSpinnerNewEventStartDay.getValue(),
                 (int) jSpinnerNewEventStartHour.getValue(),
                 (int) jSpinnerNewEventStartMinute.getValue());
         Date startDate = calStart.getTime();
-        
+
         Calendar calEnd = new GregorianCalendar((int) jSpinnerNewEventEndYear.getValue(),
                 (int) jSpinnerNewEventEndMonth.getValue() - 1,
                 (int) jSpinnerNewEventEndDay.getValue(),
                 (int) jSpinnerNewEventEndHour.getValue(),
                 (int) jSpinnerNewEventEndMinute.getValue());
         Date endDate = calEnd.getTime();
-        
+
         if (event == null) {
-            Event newEvent = new Event();
-            newEvent.setName(jTextFieldNewEventName.getText());
-            newEvent.setStartDate(startDate);
-            newEvent.setEndDate(endDate);
-            newEvent.setNote(jTextFieldNewEventNote.getText());
-            EventsMainWindow.getEventManager().createEvent(newEvent);
+            try {
+                Event newEvent = new Event();
+                newEvent.setName(jTextFieldNewEventName.getText());
+                newEvent.setStartDate(startDate);
+                newEvent.setEndDate(endDate);
+                newEvent.setNote(jTextFieldNewEventNote.getText());
+                EventsMainWindow.getEventManager().createEvent(newEvent);
+                this.dispose();
+            } catch (IllegalArgumentException ex) {
+                String msg = Strings.getString("start_date_is_same_as_end_date");
+                logger.error(msg, ex);
+                JOptionPane.showMessageDialog(this, msg);
+            }
         } else {
-            event.setName(jTextFieldNewEventName.getText());
-            event.setStartDate(startDate);
-            event.setEndDate(endDate);
-            event.setNote(jTextFieldNewEventNote.getText());
-            EventsMainWindow.getEventManager().updateEvent(event);
+            try {
+                event.setName(jTextFieldNewEventName.getText());
+                event.setStartDate(startDate);
+                event.setEndDate(endDate);
+                event.setNote(jTextFieldNewEventNote.getText());
+                EventsMainWindow.getEventManager().updateEvent(event);
+                this.dispose();
+            } catch (IllegalArgumentException ex) {
+                String msg = Strings.getString("start_date_is_same_as_end_date");
+                logger.error(msg, ex);
+                JOptionPane.showMessageDialog(this, msg);
+            }
         }
+
         
-         this.dispose();
 
 
     }//GEN-LAST:event_jButtonNewEventCommitActionPerformed
@@ -208,7 +221,7 @@ public class CreateEditEvent extends javax.swing.JDialog {
     private void setUp() {
         jTextFieldNewEventName.setText(event.getName());
         jTextFieldNewEventNote.setText(event.getNote());
-        
+
         Calendar startCalendar = new GregorianCalendar();
         startCalendar.setTime(event.getStartDate());
         jSpinnerNewEventStartYear.setValue(startCalendar.get(Calendar.YEAR));
@@ -216,7 +229,7 @@ public class CreateEditEvent extends javax.swing.JDialog {
         jSpinnerNewEventStartDay.setValue(startCalendar.get(Calendar.DAY_OF_MONTH));
         jSpinnerNewEventStartHour.setValue(startCalendar.get(Calendar.HOUR_OF_DAY));
         jSpinnerNewEventStartMinute.setValue(startCalendar.get(Calendar.MINUTE));
-        
+
         Calendar endCalendar = new GregorianCalendar();
         endCalendar.setTime(event.getEndDate());
         jSpinnerNewEventEndYear.setValue(endCalendar.get(Calendar.YEAR));
@@ -225,7 +238,7 @@ public class CreateEditEvent extends javax.swing.JDialog {
         jSpinnerNewEventEndHour.setValue(endCalendar.get(Calendar.HOUR_OF_DAY));
         jSpinnerNewEventEndMinute.setValue(endCalendar.get(Calendar.MINUTE));
     }
-    
+
     private void jButtonNewEventCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNewEventCancelActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButtonNewEventCancelActionPerformed
@@ -235,7 +248,7 @@ public class CreateEditEvent extends javax.swing.JDialog {
      */
     public static void start(Event event) {
         CreateEditEvent.event = event;
-        
+
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
