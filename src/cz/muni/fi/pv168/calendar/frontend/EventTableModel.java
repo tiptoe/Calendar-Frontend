@@ -10,6 +10,8 @@ import java.util.Date;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -18,6 +20,8 @@ import javax.swing.table.AbstractTableModel;
 public class EventTableModel extends AbstractTableModel {
 
     private List<Event> events = new ArrayList<Event>();
+    private static final Logger logger =
+            LoggerFactory.getLogger(EventTableModel.class);
 
     @Override
     public int getRowCount() {
@@ -44,7 +48,10 @@ public class EventTableModel extends AbstractTableModel {
             case 4:
                 return event.getNote();
             default:
-                throw new IllegalArgumentException("columnIndex");
+                String msg = "Trying to display invalid column: "+columnIndex;
+                logger.error(msg);
+                throw new RuntimeException(msg);
+                //throw new IllegalArgumentException("columnIndex");
         }
     }
 
@@ -62,7 +69,10 @@ public class EventTableModel extends AbstractTableModel {
             case 4:
                 return Strings.getString("note");
             default:
-                throw new IllegalArgumentException("columnIndex");
+                String msg = "Trying to display invalid column: "+columnIndex;
+                logger.error(msg);
+                throw new RuntimeException(msg);
+                //throw new IllegalArgumentException("columnIndex");
         }
     }
 
@@ -86,7 +96,10 @@ public class EventTableModel extends AbstractTableModel {
                 event.setNote((String) aValue);
                 break;
             default:
-                throw new IllegalArgumentException("columnIndex");
+                String msg = "Trying to display invalid column: "+columnIndex;
+                logger.error(msg);
+                throw new RuntimeException(msg);
+                //throw new IllegalArgumentException("columnIndex");
         }
         fireTableCellUpdated(rowIndex, columnIndex);
     }
@@ -101,7 +114,10 @@ public class EventTableModel extends AbstractTableModel {
             case 4:
                 return false;
             default:
-                throw new IllegalArgumentException("columnIndex");
+                String msg = "Trying to display invalid column: "+columnIndex;
+                logger.error(msg);
+                throw new RuntimeException(msg);
+                //throw new IllegalArgumentException("columnIndex");
         }
     }
 

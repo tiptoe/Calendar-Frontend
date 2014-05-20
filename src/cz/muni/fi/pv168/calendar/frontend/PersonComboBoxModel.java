@@ -4,6 +4,8 @@ import cz.muni.fi.pv168.calendar.backend.Person;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -11,19 +13,27 @@ import javax.swing.DefaultComboBoxModel;
  */
 public class PersonComboBoxModel extends DefaultComboBoxModel {
     private List<Person> persons = new ArrayList<Person>();
+    private static final Logger logger =
+            LoggerFactory.getLogger(PersonComboBoxModel.class);
     
     @Override
     public Object getElementAt(int index) {
-        if (index >= persons.size() || index < 0)
-            throw new IllegalArgumentException("index is " + index);
-        
+        if (index >= persons.size() || index < 0) {
+            String msg = "Trying to display invalid data at: "+index;
+            logger.error(msg);
+            throw new RuntimeException(msg);
+            //throw new IllegalArgumentException("index is " + index);
+        }
         return persons.get(index).getName();
     }
 
     public Person getSelectedPerson(int index) {
-        if (index >= persons.size() || index < 0)
-            throw new IllegalArgumentException("index is " + index);
-        
+        if (index >= persons.size() || index < 0) {
+            String msg = "Trying to display invalid data at: "+index;
+            logger.error(msg);
+            throw new RuntimeException(msg);
+            //throw new IllegalArgumentException("index is " + index);
+        }
         return persons.get(index);
     }
     

@@ -19,8 +19,8 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Properties;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import javax.sql.DataSource;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -33,8 +33,7 @@ import org.apache.commons.dbcp.BasicDataSource;
  */
 public class EventsMainWindow extends javax.swing.JFrame {
 
-    private static final Logger logger =
-            Logger.getLogger(EventManagerImpl.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(EventsMainWindow.class);
     private static EventManagerImpl eventManager;
     private static PersonManagerImpl personManager;
     private static AttendanceManagerImpl attendanceManager;
@@ -60,7 +59,6 @@ public class EventsMainWindow extends javax.swing.JFrame {
         jTableEvents.getColumnModel().getColumn(0).setMaxWidth(0);
         jTablePeople.getColumnModel().getColumn(0).setMinWidth(0);
         jTablePeople.getColumnModel().getColumn(0).setMaxWidth(0);
-
     }
 
     /**
@@ -350,7 +348,7 @@ public class EventsMainWindow extends javax.swing.JFrame {
             CreateEditEvent.start(event);
         } catch (ArrayIndexOutOfBoundsException ex) {
             String msg = Strings.getString("no_event_is_selected");
-            logger.log(Level.SEVERE, msg, ex);
+            logger.error(msg, ex);
             JOptionPane.showMessageDialog(this, msg);
         }
     }//GEN-LAST:event_jButtonEventEditActionPerformed
@@ -363,7 +361,7 @@ public class EventsMainWindow extends javax.swing.JFrame {
             loadEventDatabase();
         } catch (ArrayIndexOutOfBoundsException ex) {
             String msg = Strings.getString("no_event_is_selected");
-            logger.log(Level.SEVERE, msg, ex);
+            logger.error(msg, ex);
             JOptionPane.showMessageDialog(this, msg);
         }
     }//GEN-LAST:event_jButtonEventDeleteActionPerformed
@@ -404,7 +402,7 @@ public class EventsMainWindow extends javax.swing.JFrame {
             loadPersonDatabase();
         } catch (ArrayIndexOutOfBoundsException ex) {
             String msg = Strings.getString("no_person_is_selected");
-            logger.log(Level.SEVERE, msg, ex);
+            logger.error(msg, ex);
             JOptionPane.showMessageDialog(this, msg);
         }
     }//GEN-LAST:event_jButtonPeopleDeleteActionPerformed
@@ -416,7 +414,7 @@ public class EventsMainWindow extends javax.swing.JFrame {
             CreateEditPerson.start(person);
         } catch (ArrayIndexOutOfBoundsException ex) {
             String msg = Strings.getString("no_person_is_selected");
-            logger.log(Level.SEVERE, msg, ex);
+            logger.error(msg, ex);
             JOptionPane.showMessageDialog(this, msg);
         }
     }//GEN-LAST:event_jButtonPeopleEditActionPerformed
@@ -428,7 +426,7 @@ public class EventsMainWindow extends javax.swing.JFrame {
             EventAttendance.start(event);
         } catch (ArrayIndexOutOfBoundsException ex) {
             String msg = Strings.getString("no_event_is_selected");
-            logger.log(Level.SEVERE, msg, ex);
+            logger.error(msg, ex);
             JOptionPane.showMessageDialog(this, msg);
         }
     }//GEN-LAST:event_jButtonEventShowActionPerformed

@@ -12,8 +12,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import javax.swing.JOptionPane;
 
@@ -24,7 +24,7 @@ import javax.swing.JOptionPane;
 public class CreateEditEvent extends javax.swing.JDialog {
 
     private static final Logger logger =
-            Logger.getLogger(EventManagerImpl.class.getName());
+            LoggerFactory.getLogger(CreateEditEvent.class);
     
     private static Event event;
 
@@ -166,7 +166,7 @@ public class CreateEditEvent extends javax.swing.JDialog {
     private void jButtonNewEventCommitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNewEventCommitActionPerformed
         if (jTextFieldNewEventName.getText().equals("")) {
             String msg = Strings.getString("please_fill_in_name");
-            logger.log(Level.SEVERE, msg);
+            logger.error(msg);
             JOptionPane.showMessageDialog(null, msg);
             return;
         }

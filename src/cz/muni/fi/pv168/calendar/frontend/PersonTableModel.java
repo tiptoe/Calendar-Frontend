@@ -8,6 +8,8 @@ import cz.muni.fi.pv168.calendar.backend.Person;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -15,6 +17,8 @@ import javax.swing.table.AbstractTableModel;
  */
 public class PersonTableModel extends AbstractTableModel {
     private List<Person> persons = new ArrayList<Person>();
+    private static final Logger logger =
+            LoggerFactory.getLogger(PersonTableModel.class);
 
     @Override
     public int getRowCount() {
@@ -39,7 +43,10 @@ public class PersonTableModel extends AbstractTableModel {
             case 3:
                 return person.getNote();
             default:
-                throw new IllegalArgumentException("columnIndex");
+                String msg = "Trying to display invalid column: "+columnIndex;
+                logger.error(msg);
+                throw new RuntimeException(msg);
+                //throw new IllegalArgumentException("columnIndex");
         }
     }
     
@@ -55,7 +62,10 @@ public class PersonTableModel extends AbstractTableModel {
             case 3:
                 return Strings.getString("note");
             default:
-                throw new IllegalArgumentException("columnIndex");
+                String msg = "Trying to display invalid column: "+columnIndex;
+                logger.error(msg);
+                throw new RuntimeException(msg);
+                //throw new IllegalArgumentException("columnIndex");
         }
     }
      
@@ -76,7 +86,10 @@ public class PersonTableModel extends AbstractTableModel {
                 person.setNote((String) aValue);
                 break;
             default:
-                throw new IllegalArgumentException("columnIndex");
+                String msg = "Trying to display invalid column: "+columnIndex;
+                logger.error(msg);
+                throw new RuntimeException(msg);
+                //throw new IllegalArgumentException("columnIndex");
         }
         fireTableCellUpdated(rowIndex, columnIndex);
     }
@@ -90,7 +103,10 @@ public class PersonTableModel extends AbstractTableModel {
             case 3:
                 return false;
             default:
-                throw new IllegalArgumentException("columnIndex");
+                String msg = "Trying to display invalid column: "+columnIndex;
+                logger.error(msg);
+                throw new RuntimeException(msg);
+                //throw new IllegalArgumentException("columnIndex");
         }
     }
       

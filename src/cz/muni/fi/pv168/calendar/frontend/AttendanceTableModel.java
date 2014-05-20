@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -18,6 +20,8 @@ import javax.swing.table.AbstractTableModel;
  */
 public class AttendanceTableModel extends AbstractTableModel {
     private List<Attendance> attendances = new ArrayList<Attendance>();
+    private static final Logger logger =
+            LoggerFactory.getLogger(AttendanceTableModel.class);
     
      @Override
     public int getRowCount() {
@@ -42,7 +46,10 @@ public class AttendanceTableModel extends AbstractTableModel {
             case 3:
                 return attendance.getPlannedArrivalTime();
             default:
-                throw new IllegalArgumentException("columnIndex");
+                String msg = "Trying to display invalid column: "+columnIndex;
+                logger.error(msg);
+                throw new RuntimeException(msg);
+                //throw new IllegalArgumentException("columnIndex");
         }
     }
     
@@ -58,7 +65,10 @@ public class AttendanceTableModel extends AbstractTableModel {
             case 3:
                 return Strings.getString("planned_arrival");
             default:
-                throw new IllegalArgumentException("columnIndex");
+                String msg = "Trying to display invalid column: "+columnIndex;
+                logger.error(msg);
+                throw new RuntimeException(msg);
+                //throw new IllegalArgumentException("columnIndex");
         }
     }
      
@@ -79,7 +89,10 @@ public class AttendanceTableModel extends AbstractTableModel {
                 attendance.setPlannedArrivalTime((Date) aValue);
                 break;
             default:
-                throw new IllegalArgumentException("columnIndex");
+                String msg = "Trying to display invalid column: "+columnIndex;
+                logger.error(msg);
+                throw new RuntimeException(msg);
+                //throw new IllegalArgumentException("columnIndex");
         }
         fireTableCellUpdated(rowIndex, columnIndex);
     }
@@ -93,7 +106,10 @@ public class AttendanceTableModel extends AbstractTableModel {
             case 3:
                 return false;
             default:
-                throw new IllegalArgumentException("columnIndex");
+                String msg = "Trying to display invalid column: "+columnIndex;
+                logger.error(msg);
+                throw new RuntimeException(msg);
+                //throw new IllegalArgumentException("columnIndex");
         }
     }
       

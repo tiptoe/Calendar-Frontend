@@ -14,6 +14,8 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 /**
  *
@@ -22,6 +24,8 @@ import javax.swing.SwingWorker;
 public class EventAttendance extends javax.swing.JDialog {
 
     private static Event event;
+    private static final Logger logger =
+            LoggerFactory.getLogger(EventAttendance.class);
 
     /**
      * Creates new form EventAttendance
@@ -229,7 +233,7 @@ public class EventAttendance extends javax.swing.JDialog {
             loadComboBox();  
         } catch (ArrayIndexOutOfBoundsException ex) {
             String msg = Strings.getString("no_attendance_is_selected");
-            //logger.log(Level.SEVERE, msg, ex);
+            logger.error(msg, ex);
             JOptionPane.showMessageDialog(this, msg);
         }
     }//GEN-LAST:event_jButtonAttendanceDeleteActionPerformed

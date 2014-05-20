@@ -6,8 +6,8 @@ package cz.muni.fi.pv168.calendar.frontend;
 
 import cz.muni.fi.pv168.calendar.backend.PersonManagerImpl;
 import cz.muni.fi.pv168.calendar.backend.Person;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,7 +18,7 @@ public class CreateEditPerson extends javax.swing.JDialog {
 
     
     private static final Logger logger =
-            Logger.getLogger(PersonManagerImpl.class.getName());
+            LoggerFactory.getLogger(CreateEditPerson.class);
     
     private static Person person;
     /**
@@ -134,13 +134,13 @@ public class CreateEditPerson extends javax.swing.JDialog {
     private void jButtonNewPersonCommitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNewPersonCommitActionPerformed
         if (jTextFieldNewPersonName.getText().equals("")) {
             String msg = Strings.getString("please_fill_in_name");
-            logger.log(Level.SEVERE, msg);
+            logger.error(msg);
             JOptionPane.showMessageDialog(null, msg);
             return;
         }
         if (jTextFieldNewPersonEmail.getText().equals("")) {
             String msg = Strings.getString("please_fill_in_email_address");
-            logger.log(Level.SEVERE, msg);
+            logger.error(msg);
             JOptionPane.showMessageDialog(null, msg);
             return;
         }
