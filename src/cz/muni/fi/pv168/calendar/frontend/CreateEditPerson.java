@@ -51,6 +51,7 @@ public class CreateEditPerson extends javax.swing.JDialog {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle(Strings.getString("person"));
 
         jButtonNewPersonCommit.setText(Strings.getString("create"));
         jButtonNewPersonCommit.addActionListener(new java.awt.event.ActionListener() {

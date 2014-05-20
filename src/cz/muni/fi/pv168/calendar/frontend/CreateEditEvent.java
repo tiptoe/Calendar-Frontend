@@ -72,6 +72,7 @@ public class CreateEditEvent extends javax.swing.JDialog {
         jButtonNewEventCancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle(Strings.getString("event"));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTextFieldNewEventName.addActionListener(new java.awt.event.ActionListener() {

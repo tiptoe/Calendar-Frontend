@@ -108,6 +108,7 @@ public class EventsMainWindow extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Calendar");
         addWindowFocusListener(new java.awt.event.WindowFocusListener() {
             public void windowGainedFocus(java.awt.event.WindowEvent evt) {
                 formWindowGainedFocus(evt);
@@ -195,12 +196,12 @@ public class EventsMainWindow extends javax.swing.JFrame {
                             .addComponent(jButtonEventEdit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE))
                         .addGroup(jPanelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelEventLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
                                 .addGroup(jPanelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(jPanelEventLayout.createSequentialGroup()
-                                        .addGap(219, 219, 219)
+                                        .addGap(0, 0, Short.MAX_VALUE)
                                         .addComponent(jLabel2))
                                     .addGroup(jPanelEventLayout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
                                         .addComponent(jButtonEventShow)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
                                         .addComponent(jLabel1)))
@@ -257,7 +258,7 @@ public class EventsMainWindow extends javax.swing.JFrame {
                     .addComponent(jButtonEventSearch))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonEventClear)
-                .addContainerGap(127, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Events", jPanelEvent);
@@ -294,7 +295,7 @@ public class EventsMainWindow extends javax.swing.JFrame {
             .addGroup(jPanelPeopleLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelPeopleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 918, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 965, Short.MAX_VALUE)
                     .addGroup(jPanelPeopleLayout.createSequentialGroup()
                         .addGap(288, 288, 288)
                         .addGroup(jPanelPeopleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -315,7 +316,7 @@ public class EventsMainWindow extends javax.swing.JFrame {
                 .addComponent(jButtonPeopleEdit)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonPeopleDelete)
-                .addContainerGap(153, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("People", jPanelPeople);
