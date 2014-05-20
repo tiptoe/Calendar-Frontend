@@ -54,6 +54,9 @@
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="jTabbedPane1.setTitleAt(0,Strings.getString(&quot;events&quot;));&#xa;jTabbedPane1.setTitleAt(1,Strings.getString(&quot;people&quot;));"/>
+      </AuxValues>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
@@ -79,9 +82,9 @@
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jButtonEventDelete" pref="280" max="32767" attributes="0"/>
+                                  <Component id="jButtonEventDelete" pref="281" max="32767" attributes="0"/>
                                   <Component id="jButtonEventCreate" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="jButtonEventEdit" alignment="1" pref="213" max="32767" attributes="0"/>
+                                  <Component id="jButtonEventEdit" alignment="1" pref="281" max="32767" attributes="0"/>
                               </Group>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
@@ -110,7 +113,7 @@
                                               <Component id="jSpinnerEventStartYear" min="-2" pref="70" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" attributes="0">
-                                              <Component id="jSpinnerEventEndMonth" pref="84" max="32767" attributes="0"/>
+                                              <Component id="jSpinnerEventEndMonth" pref="85" max="32767" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="jSpinnerEventEndYear" min="-2" pref="70" max="-2" attributes="0"/>
                                           </Group>
@@ -200,7 +203,9 @@
             </Container>
             <Component class="javax.swing.JButton" name="jButtonEventCreate">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Create new"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="Strings.getString(&quot;create_new&quot;)" type="code"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonEventCreateActionPerformed"/>
@@ -208,7 +213,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="jButtonEventEdit">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Edit selected"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="Strings.getString(&quot;edit_selected&quot;)" type="code"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonEventEditActionPerformed"/>
@@ -216,7 +223,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="jButtonEventSearch">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Search"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="Strings.getString(&quot;search&quot;)" type="code"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonEventSearchActionPerformed"/>
@@ -224,17 +233,23 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel1">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Start Date"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="Strings.getString(&quot;start_date&quot;)" type="code"/>
+                </Property>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel2">
               <Properties>
-                <Property name="text" type="java.lang.String" value="End Date"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="Strings.getString(&quot;end_date&quot;)" type="code"/>
+                </Property>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonEventShow">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Show attendance"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="Strings.getString(&quot;show_attendance&quot;)" type="code"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonEventShowActionPerformed"/>
@@ -242,7 +257,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="jButtonEventClear">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Clear selection"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="Strings.getString(&quot;clear_selection&quot;)" type="code"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonEventClearActionPerformed"/>
@@ -250,7 +267,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="jButtonEventDelete">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Delete selected"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="Strings.getString(&quot;delete_selected&quot;)" type="code"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonEventDeleteActionPerformed"/>
@@ -371,7 +390,9 @@
             </Container>
             <Component class="javax.swing.JButton" name="jButtonPeopleCreate">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Create new"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="Strings.getString(&quot;create_new&quot;)&#xd;&#xa;" type="code"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonPeopleCreateActionPerformed"/>
@@ -379,7 +400,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="jButtonPeopleEdit">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Edit selected"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="Strings.getString(&quot;edit_selected&quot;)" type="code"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonPeopleEditActionPerformed"/>
@@ -387,7 +410,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="jButtonPeopleDelete">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Delete selected"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="Strings.getString(&quot;delete_selected&quot;)" type="code"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonPeopleDeleteActionPerformed"/>

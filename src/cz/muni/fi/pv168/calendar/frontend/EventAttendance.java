@@ -73,7 +73,7 @@ public class EventAttendance extends javax.swing.JDialog {
         jTableAttendance.setModel(new AttendanceTableModel());
         jScrollPane1.setViewportView(jTableAttendance);
 
-        jButtonAttendanceCreatePerson.setText("Create new person");
+        jButtonAttendanceCreatePerson.setText(Strings.getString("create_new_person"));
         jButtonAttendanceCreatePerson.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAttendanceCreatePersonActionPerformed(evt);
@@ -87,7 +87,7 @@ public class EventAttendance extends javax.swing.JDialog {
             }
         });
 
-        jButtonAttendanceAdd.setText("Add");
+        jButtonAttendanceAdd.setText(Strings.getString("add"));
         jButtonAttendanceAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAttendanceAddActionPerformed(evt);
@@ -104,26 +104,26 @@ public class EventAttendance extends javax.swing.JDialog {
 
         jSpinnerAttendanceMinute.setModel(new javax.swing.SpinnerNumberModel(0, 0, 59, 1));
 
-        jLabel1.setText("Person:");
+        jLabel1.setText(Strings.getString("person"));
 
-        jLabel2.setText("Day:");
+        jLabel2.setText(Strings.getString("day"));
 
-        jLabel3.setText("Month:");
+        jLabel3.setText(Strings.getString("month"));
 
-        jLabel4.setText("Year:");
+        jLabel4.setText(Strings.getString("year"));
 
-        jLabel5.setText("Hour:");
+        jLabel5.setText(Strings.getString("hour"));
 
-        jLabel6.setText("Minute:");
+        jLabel6.setText(Strings.getString("minute"));
 
-        jButtonAttendanceEdit.setText("Edit");
+        jButtonAttendanceEdit.setText(Strings.getString("edit"));
         jButtonAttendanceEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAttendanceEditActionPerformed(evt);
             }
         });
 
-        jButtonAttendanceDelete.setText("Delete");
+        jButtonAttendanceDelete.setText(Strings.getString("delete"));
         jButtonAttendanceDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAttendanceDeleteActionPerformed(evt);
@@ -228,7 +228,7 @@ public class EventAttendance extends javax.swing.JDialog {
             loadAttendanceDatabase();
             loadComboBox();  
         } catch (ArrayIndexOutOfBoundsException ex) {
-            String msg = "No attendance is selected.";
+            String msg = Strings.getString("no_attendance_is_selected");
             //logger.log(Level.SEVERE, msg, ex);
             JOptionPane.showMessageDialog(this, msg);
         }

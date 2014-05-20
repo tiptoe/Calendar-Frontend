@@ -52,11 +52,11 @@ public class AttendanceTableModel extends AbstractTableModel {
             case 0:
                 return "Id";
             case 1:
-                return "Event";
+                return Strings.getString("event");
             case 2:
-                return "Person";
+                return Strings.getString("person");
             case 3:
-                return "Planned Arrival";
+                return Strings.getString("planned_arrival");
             default:
                 throw new IllegalArgumentException("columnIndex");
         }

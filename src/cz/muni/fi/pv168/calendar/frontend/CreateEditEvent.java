@@ -83,7 +83,7 @@ public class CreateEditEvent extends javax.swing.JDialog {
         getContentPane().add(jTextFieldNewEventName, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 360, -1));
         getContentPane().add(jTextFieldNewEventNote, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 360, -1));
 
-        jButtonNewEventCommit.setText("Commit");
+        jButtonNewEventCommit.setText(Strings.getString("create"));
         jButtonNewEventCommit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonNewEventCommitActionPerformed(evt);
@@ -91,34 +91,34 @@ public class CreateEditEvent extends javax.swing.JDialog {
         });
         getContentPane().add(jButtonNewEventCommit, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, 128, -1));
 
-        jLabel1.setText("Name:");
+        jLabel1.setText(Strings.getString("name_event"));
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
 
-        jLabel2.setText("Start date:");
+        jLabel2.setText(Strings.getString("start_date"));
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
 
-        jLabel3.setText("End date:");
+        jLabel3.setText(Strings.getString("end_date"));
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
 
-        jLabel4.setText("Note:");
+        jLabel4.setText(Strings.getString("note"));
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
 
         jSpinnerNewEventStartDay.setModel(new javax.swing.SpinnerNumberModel(1, 1, 31, 1));
         getContentPane().add(jSpinnerNewEventStartDay, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 50, -1));
 
-        jLabel5.setText("Day:");
+        jLabel5.setText(Strings.getString("day"));
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, -1, -1));
 
-        jLabel6.setText("Month:");
+        jLabel6.setText(Strings.getString("month"));
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, -1, -1));
 
-        jLabel7.setText("Year:");
+        jLabel7.setText(Strings.getString("year"));
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, -1, -1));
 
-        jLabel8.setText("Hour:");
+        jLabel8.setText(Strings.getString("hour"));
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 50, -1, -1));
 
-        jLabel9.setText("Minute:");
+        jLabel9.setText(Strings.getString("minute"));
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 50, -1, -1));
 
         jSpinnerNewEventStartMonth.setModel(new javax.swing.SpinnerNumberModel(1, 1, 12, 1));
@@ -148,7 +148,7 @@ public class CreateEditEvent extends javax.swing.JDialog {
         jSpinnerNewEventEndMinute.setModel(new javax.swing.SpinnerNumberModel(0, 0, 59, 1));
         getContentPane().add(jSpinnerNewEventEndMinute, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 100, 50, -1));
 
-        jButtonNewEventCancel.setText("Cancel");
+        jButtonNewEventCancel.setText(Strings.getString("cancel"));
         jButtonNewEventCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonNewEventCancelActionPerformed(evt);
@@ -165,7 +165,7 @@ public class CreateEditEvent extends javax.swing.JDialog {
 
     private void jButtonNewEventCommitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNewEventCommitActionPerformed
         if (jTextFieldNewEventName.getText().equals("")) {
-            String msg = "Please fill in name.";
+            String msg = Strings.getString("please_fill_in_name");
             logger.log(Level.SEVERE, msg);
             JOptionPane.showMessageDialog(null, msg);
             return;

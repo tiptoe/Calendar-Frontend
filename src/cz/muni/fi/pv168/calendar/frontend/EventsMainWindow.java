@@ -121,46 +121,46 @@ public class EventsMainWindow extends javax.swing.JFrame {
         jTableEvents.setModel(new EventTableModel());
         jScrollPane1.setViewportView(jTableEvents);
 
-        jButtonEventCreate.setText("Create new");
+        jButtonEventCreate.setText(Strings.getString("create_new"));
         jButtonEventCreate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonEventCreateActionPerformed(evt);
             }
         });
 
-        jButtonEventEdit.setText("Edit selected");
+        jButtonEventEdit.setText(Strings.getString("edit_selected"));
         jButtonEventEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonEventEditActionPerformed(evt);
             }
         });
 
-        jButtonEventSearch.setText("Search");
+        jButtonEventSearch.setText(Strings.getString("search"));
         jButtonEventSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonEventSearchActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("Start Date");
+        jLabel1.setText(Strings.getString("start_date"));
 
-        jLabel2.setText("End Date");
+        jLabel2.setText(Strings.getString("end_date"));
 
-        jButtonEventShow.setText("Show attendance");
+        jButtonEventShow.setText(Strings.getString("show_attendance"));
         jButtonEventShow.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonEventShowActionPerformed(evt);
             }
         });
 
-        jButtonEventClear.setText("Clear selection");
+        jButtonEventClear.setText(Strings.getString("clear_selection"));
         jButtonEventClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonEventClearActionPerformed(evt);
             }
         });
 
-        jButtonEventDelete.setText("Delete selected");
+        jButtonEventDelete.setText(Strings.getString("delete_selected"));
         jButtonEventDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonEventDeleteActionPerformed(evt);
@@ -192,9 +192,9 @@ public class EventsMainWindow extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelEventLayout.createSequentialGroup()
                         .addGap(96, 96, 96)
                         .addGroup(jPanelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonEventDelete, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                            .addComponent(jButtonEventDelete, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
                             .addComponent(jButtonEventCreate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButtonEventEdit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE))
+                            .addComponent(jButtonEventEdit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE))
                         .addGroup(jPanelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelEventLayout.createSequentialGroup()
                                 .addGroup(jPanelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -217,7 +217,7 @@ public class EventsMainWindow extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jSpinnerEventStartYear, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanelEventLayout.createSequentialGroup()
-                                        .addComponent(jSpinnerEventEndMonth, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
+                                        .addComponent(jSpinnerEventEndMonth, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jSpinnerEventEndYear, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(jPanelEventLayout.createSequentialGroup()
@@ -267,21 +267,22 @@ public class EventsMainWindow extends javax.swing.JFrame {
         jTablePeople.setModel(new PersonTableModel());
         jScrollPane2.setViewportView(jTablePeople);
 
-        jButtonPeopleCreate.setText("Create new");
+        jButtonPeopleCreate.setText(Strings.getString("create_new")
+        );
         jButtonPeopleCreate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonPeopleCreateActionPerformed(evt);
             }
         });
 
-        jButtonPeopleEdit.setText("Edit selected");
+        jButtonPeopleEdit.setText(Strings.getString("edit_selected"));
         jButtonPeopleEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonPeopleEditActionPerformed(evt);
             }
         });
 
-        jButtonPeopleDelete.setText("Delete selected");
+        jButtonPeopleDelete.setText(Strings.getString("delete_selected"));
         jButtonPeopleDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonPeopleDeleteActionPerformed(evt);
@@ -332,6 +333,9 @@ public class EventsMainWindow extends javax.swing.JFrame {
             .addComponent(jTabbedPane1)
         );
 
+        jTabbedPane1.setTitleAt(0,Strings.getString("events"));
+        jTabbedPane1.setTitleAt(1,Strings.getString("people"));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -345,7 +349,7 @@ public class EventsMainWindow extends javax.swing.JFrame {
             event = getEventManager().getEventById((Integer) jTableEvents.getValueAt(jTableEvents.getSelectedRow(), 0));
             CreateEditEvent.start(event);
         } catch (ArrayIndexOutOfBoundsException ex) {
-            String msg = "No event is selected.";
+            String msg = Strings.getString("no_event_is_selected");
             logger.log(Level.SEVERE, msg, ex);
             JOptionPane.showMessageDialog(this, msg);
         }
@@ -358,7 +362,7 @@ public class EventsMainWindow extends javax.swing.JFrame {
             getEventManager().deleteEvent(event);
             loadEventDatabase();
         } catch (ArrayIndexOutOfBoundsException ex) {
-            String msg = "No event is selected.";
+            String msg = Strings.getString("no_event_is_selected");
             logger.log(Level.SEVERE, msg, ex);
             JOptionPane.showMessageDialog(this, msg);
         }
@@ -399,7 +403,7 @@ public class EventsMainWindow extends javax.swing.JFrame {
             getPersonManager().deletePerson(person);
             loadPersonDatabase();
         } catch (ArrayIndexOutOfBoundsException ex) {
-            String msg = "No person is selected.";
+            String msg = Strings.getString("no_person_is_selected");
             logger.log(Level.SEVERE, msg, ex);
             JOptionPane.showMessageDialog(this, msg);
         }
@@ -411,7 +415,7 @@ public class EventsMainWindow extends javax.swing.JFrame {
             person = getPersonManager().getPersonById((Integer) jTablePeople.getValueAt(jTablePeople.getSelectedRow(), 0));
             CreateEditPerson.start(person);
         } catch (ArrayIndexOutOfBoundsException ex) {
-            String msg = "No person is selected.";
+            String msg = Strings.getString("no_person_is_selected");
             logger.log(Level.SEVERE, msg, ex);
             JOptionPane.showMessageDialog(this, msg);
         }
@@ -423,7 +427,7 @@ public class EventsMainWindow extends javax.swing.JFrame {
             event = getEventManager().getEventById((Integer) jTableEvents.getValueAt(jTableEvents.getSelectedRow(), 0));
             EventAttendance.start(event);
         } catch (ArrayIndexOutOfBoundsException ex) {
-            String msg = "No event is selected.";
+            String msg = Strings.getString("no_event_is_selected");
             logger.log(Level.SEVERE, msg, ex);
             JOptionPane.showMessageDialog(this, msg);
         }
@@ -516,7 +520,7 @@ public class EventsMainWindow extends javax.swing.JFrame {
         }
         //</editor-fold>
         
-        ResourceBundle databaseProperties = ResourceBundle.getBundle("cz.muni.fi.pv168.calendar.common.db");
+        ResourceBundle databaseProperties = ResourceBundle.getBundle("cz.muni.fi.pv168.calendar.resources.db");
         
         BasicDataSource ds = new BasicDataSource();
         ds.setUrl(databaseProperties.getString("jdbcUrl"));

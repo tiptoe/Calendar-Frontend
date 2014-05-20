@@ -54,13 +54,13 @@ public class EventTableModel extends AbstractTableModel {
             case 0:
                 return "Id";
             case 1:
-                return "Name";
+                return Strings.getString("name_event");
             case 2:
-                return "Start Date";
+                return Strings.getString("start_date");
             case 3:
-                return "End Date";
+                return Strings.getString("end_date");
             case 4:
-                return "Note";
+                return Strings.getString("note");
             default:
                 throw new IllegalArgumentException("columnIndex");
         }

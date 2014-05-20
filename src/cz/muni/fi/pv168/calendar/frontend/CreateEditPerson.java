@@ -52,20 +52,20 @@ public class CreateEditPerson extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jButtonNewPersonCommit.setText("Commit");
+        jButtonNewPersonCommit.setText(Strings.getString("create"));
         jButtonNewPersonCommit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonNewPersonCommitActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("Name:");
+        jLabel1.setText(Strings.getString("name_person"));
 
-        jLabel2.setText("E-mail address:");
+        jLabel2.setText(Strings.getString("email"));
 
-        jLabel3.setText("Note:");
+        jLabel3.setText(Strings.getString("note"));
 
-        jButton1.setText("Cancel");
+        jButton1.setText(Strings.getString("cancel"));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -83,7 +83,7 @@ public class CreateEditPerson extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
-                                .addGap(0, 300, Short.MAX_VALUE))
+                                .addGap(0, 265, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jTextFieldNewPersonEmail, javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,13 +133,13 @@ public class CreateEditPerson extends javax.swing.JDialog {
 
     private void jButtonNewPersonCommitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNewPersonCommitActionPerformed
         if (jTextFieldNewPersonName.getText().equals("")) {
-            String msg = "Please fill in name.";
+            String msg = Strings.getString("please_fill_in_name");
             logger.log(Level.SEVERE, msg);
             JOptionPane.showMessageDialog(null, msg);
             return;
         }
         if (jTextFieldNewPersonEmail.getText().equals("")) {
-            String msg = "Please fill in e-mail address.";
+            String msg = Strings.getString("please_fill_in_email_address");
             logger.log(Level.SEVERE, msg);
             JOptionPane.showMessageDialog(null, msg);
             return;

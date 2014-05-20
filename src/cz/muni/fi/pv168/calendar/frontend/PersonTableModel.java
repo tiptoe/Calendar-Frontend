@@ -49,11 +49,11 @@ public class PersonTableModel extends AbstractTableModel {
             case 0:
                 return "Id";
             case 1:
-                return "Name";
+                return Strings.getString("name_person");
             case 2:
-                return "E-mail";
+                return Strings.getString("email");
             case 3:
-                return "Note";
+                return Strings.getString("note");
             default:
                 throw new IllegalArgumentException("columnIndex");
         }
