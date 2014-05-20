@@ -264,10 +264,6 @@ public class CreateEditEvent extends javax.swing.JDialog {
             public void run() {
                 CreateEditEvent dialog = new CreateEditEvent(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
                 });
                 dialog.setVisible(true);
             }
